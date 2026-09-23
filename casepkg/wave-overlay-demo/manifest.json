@@ -1,0 +1,67 @@
+{
+ "case_id": "wave-overlay-demo",
+ "title": "波形叠影台：示波器分段、触发抖动与测量窗口谱系",
+ "story": "信号完整性团队导入分段捕获、触发标记和通道标定，对齐重复事件并审查测量分布。",
+ "sources": [
+  {
+   "kind": "segment",
+   "name": "segments/ch1_0000",
+   "file": "segments/ch1_0000.json"
+  },
+  {
+   "kind": "segment",
+   "name": "segments/ch1_0001",
+   "file": "segments/ch1_0001.json"
+  },
+  {
+   "kind": "segment",
+   "name": "segments/ch1_0002",
+   "file": "segments/ch1_0002.json"
+  },
+  {
+   "kind": "segment",
+   "name": "segments/ch1_0003",
+   "file": "segments/ch1_0003.json"
+  },
+  {
+   "kind": "segment",
+   "name": "segments/ch1_0004",
+   "file": "segments/ch1_0004.json"
+  },
+  {
+   "kind": "segment",
+   "name": "segments/ch2_0005",
+   "file": "segments/ch2_0005.json"
+  },
+  {
+   "kind": "segment",
+   "name": "segments/ch1_0006",
+   "file": "segments/ch1_0006.json"
+  },
+  {
+   "kind": "segment",
+   "name": "segments/ch1_0007",
+   "file": "segments/ch1_0007.json"
+  },
+  {
+   "kind": "segment",
+   "name": "segments/ch1_0008",
+   "file": "segments/ch1_0008.json"
+  },
+  {
+   "kind": "segment-patch",
+   "name": "segments/ch2_0005_rev2",
+   "file": "segments/ch2_0005_rev2.json"
+  },
+  {
+   "kind": "intervals",
+   "name": "intervals:v1",
+   "file": "intervals_v1.json"
+  },
+  {
+   "kind": "intervals",
+   "name": "intervals:v2",
+   "file": "intervals_v2.json"
+  }
+ ]
+}

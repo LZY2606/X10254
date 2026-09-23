@@ -1,0 +1,48 @@
+{
+ "case_id": "wave-overlay-demo",
+ "archive": "反例档案：每次只改动一个直接来源，影响必须被限制在正确范围",
+ "cases": [
+  {
+   "id": "ce:nonuniform-timebase",
+   "segment": "seg:ch1/0002",
+   "expect_rule": "nonuniform-no-index-sub",
+   "basis": "时间轴不等间隔时不用索引相减"
+  },
+  {
+   "id": "ce:vertical-saturation",
+   "segment": "seg:ch1/0003",
+   "expect_rule": "gap-no-interp",
+   "basis": "饱和区间不进入插值"
+  },
+  {
+   "id": "ce:multipeak-alignment",
+   "segment": "seg:ch1/0004",
+   "expect_rule": "multipeak-candidates",
+   "basis": "对齐保留多峰互相关候选"
+  },
+  {
+   "id": "ce:channel-deskew",
+   "segment": "seg:ch2/0005",
+   "expect_rule": null,
+   "basis": "deskew 改动只使本通道派生失效"
+  },
+  {
+   "id": "ce:missing-samples",
+   "segment": "seg:ch1/0006",
+   "expect_rule": "gap-no-interp",
+   "basis": "缺样区间不进入插值"
+  },
+  {
+   "id": "ce:trigger-at-boundary",
+   "segment": "seg:ch1/0007",
+   "expect_rule": "trigger-at-boundary",
+   "basis": "触发在边界的段被排除并记录原因"
+  },
+  {
+   "id": "ce:interval-revision",
+   "segment": null,
+   "expect_rule": null,
+   "basis": "区间版本修订只使测量派生失效，不影响对齐"
+  }
+ ]
+}

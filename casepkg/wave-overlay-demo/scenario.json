@@ -1,0 +1,58 @@
+{
+ "case_id": "wave-overlay-demo",
+ "steps": [
+  {
+   "id": "s1",
+   "kind": "import-baseline",
+   "title": "初始导入：每段原采样/时基/增益/衰减/触发/deskew/区间版本化"
+  },
+  {
+   "id": "s2",
+   "kind": "review-baseline",
+   "title": "审阅者核对基线",
+   "note": "基线核对完成：9 段 + ch2 修订源 + 区间 v1/v2 均在案"
+  },
+  {
+   "id": "s3",
+   "kind": "param-revision",
+   "title": "参数修订：峰阈值 0.8 -> 0.9",
+   "params_version": "params:v2"
+  },
+  {
+   "id": "s4",
+   "kind": "interval-revision",
+   "title": "区间版本修订 v1 -> v2",
+   "interval_version": "intervals:v2"
+  },
+  {
+   "id": "s5",
+   "kind": "source-patch",
+   "title": "源数据局部改动：ch2 deskew 350ps -> 300ps",
+   "source_id": "src:wave-overlay-demo/segments/ch2_0005",
+   "new_source_id": "src:wave-overlay-demo/segments/ch2_0005_rev2"
+  },
+  {
+   "id": "s6",
+   "kind": "conflicting-decisions",
+   "title": "互相冲突的人工决定：多峰段 ch1/0004 选峰",
+   "decisions": [
+    {
+     "target": "cand:seg:ch1/0004/0",
+     "decision": "accept",
+     "note": "审阅A：取 τ=+8ns 峰"
+    },
+    {
+     "target": "cand:seg:ch1/0004/1",
+     "decision": "accept",
+     "note": "审阅B：取 τ=-8ns 峰"
+    }
+   ]
+  },
+  {
+   "id": "s7",
+   "kind": "edge-branch",
+   "title": "第二分支：检验 R1 不等间隔/R2 缺样饱和/R3 多峰候选",
+   "note": "保留全部合法候选，不收敛到单峰"
+  }
+ ]
+}

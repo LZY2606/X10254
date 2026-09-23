@@ -1,0 +1,39 @@
+{
+ "version": "intervals:v2",
+ "case": "wave-overlay-demo",
+ "windows": [
+  {
+   "id": "win:rise",
+   "t0": {
+    "value": -3.0,
+    "unit": "ns"
+   },
+   "t1": {
+    "value": 0.0,
+    "unit": "ns"
+   }
+  },
+  {
+   "id": "win:top",
+   "t0": {
+    "value": 0.0,
+    "unit": "ns"
+   },
+   "t1": {
+    "value": 6.0,
+    "unit": "ns"
+   }
+  },
+  {
+   "id": "win:tail",
+   "t0": {
+    "value": 6.0,
+    "unit": "ns"
+   },
+   "t1": {
+    "value": 12.0,
+    "unit": "ns"
+   }
+  }
+ ]
+}
