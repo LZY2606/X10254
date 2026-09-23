@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+<meta charset="utf-8">
+<title>波形叠影台 · 示波器分段 / 触发抖动 / 测量窗口谱系</title>
+<style>
+  body { font-family: -apple-system, "PingFang SC", sans-serif; margin: 16px; background:#0f1115; color:#dde; }
+  h1 { font-size: 18px; } h2 { font-size: 14px; color:#9ab; margin: 14px 0 6px; }
+  .panel { background:#171a21; border:1px solid #2a2f3a; border-radius:8px; padding:10px 14px; margin-bottom:12px; }
+  table { border-collapse: collapse; font-size: 12px; width: 100%; }
+  td, th { border: 1px solid #2a2f3a; padding: 3px 8px; text-align: left; }
+  th { color: #8fa3bf; }
+  .id { color:#6f8; font-family: ui-monospace, monospace; font-size: 10px; }
+  .unit { color:#c9a86a; font-size: 10px; }
+  button { background:#243044; color:#dde; border:1px solid #3a4a66; border-radius:4px; padding:2px 10px; cursor:pointer; font-size:12px; }
+  button:hover { background:#2e3d58; }
+  .accepted { color:#5d5; } .rejected { color:#d66; } .pending { color:#da5; }
+  .excluded { color:#d66; } .included { color:#5d5; }
+  #banner { background:#4a3a12; border:1px solid #a80; padding:6px 10px; border-radius:6px; display:none; margin-bottom:10px; }
+  #conflict { background:#3a1520; border:1px solid #a35; padding:8px; border-radius:6px; display:none; white-space:pre-wrap; font-size:11px; }
+  .evt { font-size:11px; }
+  svg { background:#0a0c10; border-radius:6px; }
+  select { background:#243044; color:#dde; border:1px solid #3a4a66; border-radius:4px; padding:2px 6px; }
+</style>
+</head>
+<body>
+<h1>波形叠影台 · 示波器分段、触发抖动与测量窗口谱系</h1>
+<div id="banner"></div>
+<div class="panel">
+  <span id="caseName"></span><br>
+  <span style="font-size:11px;color:#789" id="narrative"></span><br>
+  分支: <select id="branchSel" onchange="loadState()"></select>
+  新分支: <input id="newBranch" placeholder="branch-name" style="width:110px;background:#0d0f14;color:#dde;border:1px solid #3a4a66;border-radius:4px">
+  <button onclick="createBranch()">创建</button>
+  <button onclick="doParamRevision()">参数修订</button>
+  <button onclick="doWindowRevision()">区间版本修订</button>
+  <button onclick="doSourcePatch()">源数据改动</button>
+  <button onclick="doConflict()">制造冲突</button>
+  <button onclick="doExport()">导出</button>
+  <button onclick="doReimport()">删库再导入</button>
+  <span id="head" class="id"></span>
+</div>
+<div id="conflict"></div>
+<div class="panel"><h2>叠影（对齐后叠加，缺样/饱和区间为缺口）</h2><svg id="overlay" width="900" height="240"></svg><div id="overlayLegend" style="font-size:11px"></div></div>
+<div class="panel"><h2>抖动分布（触发时标 − 期望触发，ns）</h2><svg id="jitter" width="900" height="160"></svg><div id="jitterList" style="font-size:11px"></div></div>
+<div class="panel"><h2>触发候选（多峰互相关，保留全部合法候选）</h2><table id="cands"></table></div>
+<div class="panel"><h2>测量窗（版本化区间成员判定）</h2><table id="windows"></table></div>
+<div class="panel"><h2>被排除段的原因</h2><table id="exclusions"></table></div>
+<div class="panel"><h2>诊断（无法转换的值留在原位置）</h2><table id="diags"></table></div>
+<div class="panel"><h2>事件谱系（点击事件回到当时视图；裁定可撤销）</h2><div id="events"></div></div>
+<script>
+let HEAD = null, BRANCH = "main";
+const COLORS = ["#4fc3f7","#aed581","#ffb74d","#f06292","#ba68c8","#4db6ac","#fff176","#90a4ae"];
+
+async function api(path, opts) {
+  const r = await fetch(path, opts ? {method:"POST", headers:{"Content-Type":"application/json"}, body:JSON.stringify(opts)} : undefined);
+  if (r.status === 409) { showConflict(await r.json()); return null; }
+  return r.json();
+}
+function showConflict(c) {
+  const el = document.getElementById("conflict");
+  el.style.display = "block";
+  el.textContent = "版本冲突（后提交者看到双方差异）:\n当前头部: " + c.current_head +
+    "\n对方事件: " + JSON.stringify(c.their_events, null, 1) +
+    "\n你的事件: " + JSON.stringify(c.your_event, null, 1);
+}
+async function loadState(upto) {
+  const url = "/api/state?branch=" + encodeURIComponent(BRANCH) + (upto ? "&upto=" + upto : "");
+  const s = await api(url);
+  HEAD = s.branch.head_event_id;
+  document.getElementById("caseName").textContent = s.case.name || "";
+  document.getElementById("narrative").textContent = s.case.narrative || "";
+  document.getElementById("head").textContent = "head: " + HEAD + " · mw: " + s.mw_version;
+  const banner = document.getElementById("banner");
+  if (s.history_view) { banner.style.display="block"; banner.textContent = "历史视图 @" + upto + " — 显示当时的依赖版本与可见结论"; banner.onclick=()=>loadState(); banner.style.cursor="pointer"; banner.title="点击返回最新"; }
+  else banner.style.display = "none";
+  renderBranches(s); renderOverlay(s); renderJitter(s); renderCands(s);
+  renderWindows(s); renderExclusions(s); renderDiags(s); renderEvents(s);
+}
+async function renderBranches(s) {
+  const bs = await api("/api/branches");
+  const sel = document.getElementById("branchSel");
+  sel.innerHTML = "";
+  bs.branches.forEach(b => {
+    const o = document.createElement("option");
+    o.value = b.name; o.textContent = b.name; if (b.name === BRANCH) o.selected = true;
+    sel.appendChild(o);
+  });
+  BRANCH = sel.value || BRANCH;
+}
+function renderOverlay(s) {
+  const svg = document.getElementById("overlay");
+  const W = 900, H = 240, P = 24;
+  let tmin = 1e9, tmax = -1e9, vmax = 0;
+  const traces = [];
+  s.segments.forEach((seg, i) => {
+    if (!seg.normalized) return;
+    const al = s.derived.alignment[seg.id];
+    let lag = 0;
+    if (al && al.candidates.length) {
+      const acc = al.candidates.find(c => c.status === "accepted") || al.candidates[0];
+      lag = acc.lag_ns;
+    }
+    const t = seg.normalized.t.map(x => x + lag), v = seg.normalized.v;
+    tmin = Math.min(tmin, ...t); tmax = Math.max(tmax, ...t);
+    vmax = Math.max(vmax, ...v.map(Math.abs));
+    traces.push({seg, t, v, excl: new Set(seg.normalized.excluded), color: COLORS[i % COLORS.length]});
+  });
+  const X = x => P + (x - tmin) / (tmax - tmin || 1) * (W - 2*P);
+  const Y = y => H/2 - y / (vmax || 1) * (H/2 - P);
+  let inner = "";
+  const legend = [];
+  traces.forEach(tr => {
+    // R2: break the polyline across excluded (missing/saturated) intervals
+    let d = "", pen = false;
+    for (let i = 0; i < tr.t.length; i++) {
+      if (tr.excl.has(i)) { pen = false; continue; }
+      d += (pen ? "L" : "M") + X(tr.t[i]).toFixed(1) + "," + Y(tr.v[i]).toFixed(1);
+      pen = true;
+    }
+    inner += `<path d="${d}" stroke="${tr.color}" fill="none" stroke-width="1.2" opacity="0.85"/>`;
+    legend.push(`<span style="color:${tr.color}">■ ${tr.seg.key}</span> <span class="id">${tr.seg.id}</span>`);
+  });
+  svg.innerHTML = inner;
+  document.getElementById("overlayLegend").innerHTML = legend.join(" &nbsp; ");
+}
+function renderJitter(s) {
+  const svg = document.getElementById("jitter");
+  const items = Object.values(s.derived.jitter);
+  const bin = s.params.jitter_bin_ns || 0.02;
+  const bins = {};
+  items.forEach(j => { const k = Math.round(j.value_ns / bin) * bin; bins[k] = (bins[k]||0)+1; });
+  const keys = Object.keys(bins).map(Number).sort((a,b)=>a-b);
+  const W=900,H=160,P=24, maxc = Math.max(1, ...Object.values(bins));
+  const bw = keys.length ? (W-2*P)/keys.length : 10;
+  let inner = `<line x1="${P}" y1="${H-P}" x2="${W-P}" y2="${H-P}" stroke="#345"/>`;
+  keys.forEach((k,i) => {
+    const h = bins[k]/maxc*(H-2*P);
+    inner += `<rect x="${(P+i*bw+2).toFixed(1)}" y="${(H-P-h).toFixed(1)}" width="${(bw-4).toFixed(1)}" height="${h.toFixed(1)}" fill="#4fc3f7"/>` +
+             `<text x="${(P+i*bw+bw/2).toFixed(1)}" y="${H-P+12}" fill="#789" font-size="9" text-anchor="middle">${k.toFixed(2)}</text>`;
+  });
+  svg.innerHTML = inner;
+  document.getElementById("jitterList").innerHTML = items.map(j =>
+    `<span class="id">${j.id}</span> ${j.segment}: <b>${j.value_ns}</b> <span class="unit">${j.unit}</span>`).join(" · ");
+}
+function renderCands(s) {
+  let rows = `<tr><th>候选身份</th><th>段</th><th>lag</th><th>score</th><th>状态</th><th>裁定事件</th><th>操作</th></tr>`;
+  Object.values(s.derived.alignment).forEach(a => {
+    a.candidates.forEach(c => {
+      rows += `<tr><td class="id">${c.id}</td><td>${a.segment}</td>` +
+        `<td>${c.lag_ns} <span class="unit">ns</span></td><td>${c.score}</td>` +
+        `<td class="${c.status==='accepted'?'accepted':c.status==='rejected'?'rejected':'pending'}">${c.status}</td>` +
+        `<td class="id">${c.decided_by||""}</td>` +
+        `<td><button onclick="adj('${c.id}','accept')">接受</button> <button onclick="adj('${c.id}','reject')">否定</button></td></tr>`;
+    });
+  });
+  document.getElementById("cands").innerHTML = rows;
+}
+function renderWindows(s) {
+  let rows = `<tr><th>判定身份</th><th>段</th><th>区间版本</th><th>结果</th><th>原因</th></tr>`;
+  Object.values(s.derived.windows).forEach(w => {
+    rows += `<tr><td class="id">${w.id}</td><td>${w.segment}</td><td>${w.window_version}</td>` +
+      `<td class="${w.included?'included':'excluded'}">${w.included?"纳入":"排除"}</td><td>${w.reason||""}</td></tr>`;
+  });
+  document.getElementById("windows").innerHTML = rows;
+}
+function renderExclusions(s) {
+  let rows = `<tr><th>身份</th><th>段</th><th>规则</th><th>原因</th></tr>`;
+  s.derived.exclusions.forEach(e => {
+    rows += `<tr><td class="id">${e.id}</td><td>${e.segment}</td><td>${e.rule}</td><td>${e.reason}</td></tr>`;
+  });
+  document.getElementById("exclusions").innerHTML = rows;
+}
+function renderDiags(s) {
+  let rows = `<tr><th>身份</th><th>段</th><th>字段</th><th>诊断</th></tr>`;
+  s.derived.diagnostics.forEach(d => {
+    rows += `<tr><td class="id">${d.id}</td><td>${d.segment}</td><td>${d.field} (${d.unit})</td><td>${d.message}</td></tr>`;
+  });
+  document.getElementById("diags").innerHTML = rows;
+}
+function renderEvents(s) {
+  const el = document.getElementById("events");
+  el.innerHTML = s.events.map(e =>
+    `<div class="evt"><a href="#" onclick="loadState('${e.id}');return false" class="id">${e.id}</a> ` +
+    `#${e.seq} <b>${e.kind}</b> ${JSON.stringify(e.payload)} ` +
+    (e.kind==="adjudicate" ? `<button onclick="undo('${e.id}')">撤销</button>` : "") +
+    `</div>`).join("");
+}
+async function adj(cid, decision) {
+  await api("/api/branches/" + BRANCH + "/events",
+    {kind:"adjudicate", payload:{candidate_id:cid, decision, rationale:"reviewer via UI"}, expected_head:HEAD});
+  loadState();
+}
+async function undo(eid) {
+  await api("/api/branches/" + BRANCH + "/events",
+    {kind:"undo", payload:{target:eid}, expected_head:HEAD});
+  loadState();
+}
+async function createBranch() {
+  const name = document.getElementById("newBranch").value || ("branch-" + Date.now());
+  await api("/api/branches", {name, base_branch: BRANCH});
+  BRANCH = name; loadState();
+}
+async function doParamRevision() {
+  await api("/api/branches/" + BRANCH + "/events",
+    {kind:"param_revision", payload:{key:"align_threshold", from:0.6, to:0.5}, expected_head:HEAD});
+  loadState();
+}
+async function doWindowRevision() {
+  await api("/api/branches/" + BRANCH + "/events",
+    {kind:"window_revision", payload:{from:"mw-v1", to:"mw-v2"}, expected_head:HEAD});
+  loadState();
+}
+async function doSourcePatch() {
+  const st = await api("/api/state?branch=" + BRANCH);
+  const seg = st.segments.find(x => x.key === "seg-004");
+  await api("/api/branches/" + BRANCH + "/events",
+    {kind:"source_patch", payload:{segment_id:seg.id, patch:{deskew:{value:0.25, unit:"ns"}}}, expected_head:HEAD});
+  loadState();
+}
+async function doConflict() {
+  // 两个“窗口”同时保存：第二个提交者看到版本冲突与双方差异
+  const st = await api("/api/state?branch=" + BRANCH);
+  const stale = st.branch.head_event_id;
+  await api("/api/branches/" + BRANCH + "/events",
+    {kind:"adjudicate", payload:{candidate_id:"cand:seg-007#1", decision:"accept", rationale:"window A"}, expected_head:stale});
+  await api("/api/branches/" + BRANCH + "/events",
+    {kind:"adjudicate", payload:{candidate_id:"cand:seg-007#1", decision:"reject", rationale:"window B"}, expected_head:stale});
+  loadState();
+}
+async function doExport() {
+  const dump = await api("/api/export");
+  const blob = new Blob([JSON.stringify(dump)], {type:"application/json"});
+  const a = document.createElement("a");
+  a.href = URL.createObjectURL(blob); a.download = "waveform-overlay-export.json"; a.click();
+}
+async function doReimport() {
+  const dump = await api("/api/export");
+  await api("/api/reset", {});
+  await api("/api/import", dump);
+  loadState();
+}
+loadState();
+</script>
+</body>
+</html>
