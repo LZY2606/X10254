@@ -1,0 +1,144 @@
+{
+ "conflicting_decisions": [
+  {
+   "candidate_id": "cand-seg-01-1",
+   "decision": "accept",
+   "decision_id": "dec-A",
+   "note": "主瓣候选，相关得分最高",
+   "reviewer": "reviewer-A",
+   "segment_id": "seg-01"
+  },
+  {
+   "candidate_id": "cand-seg-01-2",
+   "decision": "accept",
+   "decision_id": "dec-B",
+   "note": "次峰候选，与 dec-A 冲突，双方差异需可见",
+   "reviewer": "reviewer-B",
+   "segment_id": "seg-01"
+  }
+ ],
+ "param_revision": {
+  "author": "si-reviewer",
+  "from": "mi-v1",
+  "kind": "param",
+  "note": "区间版本修订：测量窗由 6~10ns 改为 7~12ns（aligned 基准）",
+  "param": "measurement_interval",
+  "revision_id": "rev-param-mi-v2",
+  "to": "mi-v2"
+ },
+ "source_changes": [
+  {
+   "author": "si-reviewer",
+   "change_id": "rev-src-seg-04",
+   "kind": "source",
+   "note": "竖直增益误录修正（30x -> 1x），只应影响 seg-04 的派生",
+   "payload": {
+    "channel": "ch1",
+    "deskew": {
+     "unit": "s",
+     "value": 0.0
+    },
+    "interval_version": "mi-v1",
+    "missing": [],
+    "probe_attenuation": {
+     "unit": "ratio",
+     "value": 10.0
+    },
+    "samples": {
+     "basis": "adc:10bit",
+     "unit": "adc_code",
+     "values": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      1,
+      8,
+      34,
+      97,
+      188,
+      248,
+      221,
+      133,
+      54,
+      15,
+      3,
+      1,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      1,
+      8,
+      34,
+      97,
+      189,
+      248,
+      221,
+      133,
+      54,
+      15,
+      3,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+     ]
+    },
+    "saturation_code": 1023,
+    "segment_id": "seg-04",
+    "timebase": {
+     "dt": {
+      "unit": "s",
+      "value": 5e-10
+     },
+     "kind": "uniform",
+     "t0": {
+      "unit": "s",
+      "value": 5e-07
+     }
+    },
+    "trigger_time": {
+     "basis": "acq_clock",
+     "unit": "s",
+     "value": 5.081e-07
+    },
+    "vertical_gain": {
+     "unit": "V/adc_code",
+     "value": 0.002
+    }
+   },
+   "source_id": "seg-04",
+   "version": 2
+  }
+ ]
+}

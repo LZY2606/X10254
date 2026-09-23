@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+<meta charset="utf-8">
+<title>波形叠影台：示波器分段、触发抖动与测量窗口谱系</title>
+<style>
+ body{font-family:-apple-system,"PingFang SC",sans-serif;margin:16px;color:#222;background:#fafafa}
+ h1{font-size:18px} h2{font-size:14px;margin:14px 0 6px}
+ button{margin:2px 4px 2px 0;padding:3px 10px;cursor:pointer}
+ select{margin:2px 4px}
+ .panel{background:#fff;border:1px solid #ddd;border-radius:6px;padding:10px;margin-bottom:12px}
+ .id{color:#888;font-size:11px;font-family:monospace}
+ .unit{color:#666;font-size:11px}
+ .excluded{color:#b00}
+ .stale{color:#b60}
+ table{border-collapse:collapse;font-size:12px}
+ td,th{border:1px solid #ddd;padding:3px 8px;text-align:left}
+ .cand{font-size:12px;margin:2px 0}
+ .cand.accepted{background:#e6f7e6}
+ .cand.rejected{background:#fbe4 #e6}
+ .cand.rejected{background:#f7e6e6}
+ #conflict{background:#fff3f3;border:1px solid #c00;padding:8px;display:none;white-space:pre-wrap;font-size:12px}
+ #status{font-size:12px;color:#060}
+ .evt{font-size:11px;font-family:monospace;margin:1px 0}
+ svg{background:#fff;border:1px solid #ddd}
+</style>
+</head>
+<body>
+<h1>波形叠影台：示波器分段、触发抖动与测量窗口谱系</h1>
+<div class="panel">
+ <b>操作</b>
+ <button onclick="loadCase()">载入仓库示例</button>
+ <button onclick="applyParamRevision()">参数修订 mi-v1→mi-v2</button>
+ <button onclick="applySourceRevision()">源数据修订 seg-04 v2</button>
+ <button onclick="undoLast()">撤销上一裁定</button>
+ <button onclick="makeBranch()">新建解释分支</button>
+ <button onclick="simulateConflict()">模拟第二窗口（制造冲突）</button>
+ <button onclick="exportDb()">导出</button>
+ <span>分支:</span><select id="branchSel" onchange="refresh()"></select>
+ <span id="status"></span>
+</div>
+<div id="conflict"></div>
+<div class="panel"><h2>叠影（对齐后，单位 ns / V，基准 aligned-trigger）</h2><svg id="overlay" width="920" height="300"></svg><div id="overlayLegend"></div></div>
+<div class="panel"><h2>抖动分布（单位 s，基准 acq_clock）</h2><svg id="jitter" width="920" height="180"></svg></div>
+<div class="panel"><h2>触发候选（多峰互相关，可切换/接受/否定）</h2><div id="candidates"></div></div>
+<div class="panel"><h2>测量窗（区间版本化）</h2><div id="measurements"></div></div>
+<div class="panel"><h2>被排除段与原因</h2><div id="excluded"></div></div>
+<div class="panel"><h2>诊断（无法转换的值留在原位置）</h2><div id="diagnostics"></div></div>
+<div class="panel"><h2>反例档案（被采纳与未采纳的结果都保留）</h2><div id="archive"></div></div>
+<div class="panel"><h2>事件谱系（点击恢复回到当时依赖版本与可见结论）</h2><div id="events"></div></div>
+<script>
+let S = null;           // 当前状态
+let branch = "br-main";
+let lastRulingSeq = null;
+
+function fmt(v, unit){ return (typeof v === "number" ? v.toExponential(3) : v) + " " + (unit||""); }
+function idTag(id){ return ' <span class="id">[' + id + ']</span>'; }
+async function api(path, body){
+  const opt = body === undefined ? {} : {method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify(body)};
+  const r = await fetch(path, opt);
+  const j = await r.json();
+  if(r.status === 409){ showConflict(j); return null; }
+  return j;
+}
+function showConflict(c){
+  const el = document.getElementById("conflict");
+  el.style.display = "block";
+  el.textContent = "版本冲突：当前头=" + c.current_head + "，你的基线=" + c.your_base +
+    "\n对方已提交（events_since）:\n" + JSON.stringify(c.events_since, null, 1) +
+    "\n你的提交（your_payload）:\n" + JSON.stringify(c.your_payload, null, 1);
+}
+function head(){ return S ? S.head_seq : 0; }
+
+async function refresh(){
+  S = await (await fetch("/api/state?branch=" + branch)).json();
+  renderAll();
+}
+async function loadCase(){ await api("/api/case/load", {}); await refresh(); }
+async function applyParamRevision(){
+  const r = await api("/api/revisions/params", {branch, expected_head: head()});
+  if(r) document.getElementById("status").textContent = "失效范围: " + r.affected.join(", ");
+  await refresh();
+}
+async function applySourceRevision(){
+  const r = await api("/api/revisions/source", {branch, expected_head: head(), source_id:"seg-04"});
+  if(r) document.getElementById("status").textContent = "失效范围: " + r.affected.join(", ");
+  await refresh();
+}
+async function ruling(seg, cand, decision){
+  const r = await api("/api/rulings", {branch, expected_head: head(),
+    segment_id: seg, candidate_id: cand, decision});
+  if(r){ lastRulingSeq = r.event.seq; await refresh(); }
+}
+async function undoLast(){
+  if(lastRulingSeq === null){ alert("本窗口尚无裁定可撤销"); return; }
+  await api("/api/undo", {branch, expected_head: head(), target_seq: lastRulingSeq});
+  lastRulingSeq = null; await refresh();
+}
+async function makeBranch(){
+  const name = prompt("新分支名", "reinterpret");
+  if(!name) return;
+  const r = await api("/api/branches", {parent: branch, name});
+  branch = r.branch_id; await refresh();
+}
+async function simulateConflict(){
+  // 窗口A提交一个裁定；窗口B（本按钮）用旧头提交另一个 -> 409 双方差异可见
+  const h = head();
+  const segs = Object.keys(S.candidates);
+  const seg = segs.find(s => S.candidates[s].length >= 2) || segs[0];
+  const cands = S.candidates[seg];
+  await api("/api/rulings", {branch, expected_head: h, segment_id: seg,
+    candidate_id: cands[0].candidate_id, decision: "accept", reviewer: "window-A"});
+  await api("/api/rulings", {branch, expected_head: h, segment_id: seg,
+    candidate_id: (cands[1]||cands[0]).candidate_id, decision: "accept", reviewer: "window-B"});
+  await refresh();
+}
+async function restoreTo(seq){
+  await api("/api/restore", {branch, expected_head: head(), to_seq: seq});
+  await refresh();
+}
+async function exportDb(){
+  const j = await (await fetch("/api/export")).json();
+  const blob = new Blob([JSON.stringify(j)], {type:"application/json"});
+  const a = document.createElement("a");
+  a.href = URL.createObjectURL(blob); a.download = "waveform-export.json"; a.click();
+}
+
+function renderAll(){
+  const sel = document.getElementById("branchSel");
+  sel.innerHTML = "";
+  S.branches.forEach(b => {
+    const o = document.createElement("option");
+    o.value = b.branch_id; o.textContent = b.branch_id + " (" + b.name + ")";
+    if(b.branch_id === branch) o.selected = true;
+    sel.appendChild(o);
+  });
+  renderOverlay(); renderJitter(); renderCandidates();
+  renderMeasurements(); renderExcluded(); renderDiagnostics();
+  renderEvents(); renderArchive();
+}
+
+function renderOverlay(){
+  const svg = document.getElementById("overlay");
+  const W = 920, H = 300, pad = 30;
+  let tmin = 1e9, tmax = -1e9, vmax = 0;
+  Object.values(S.overlays).forEach(ov => {
+    ov.t.values.forEach(t => { tmin = Math.min(tmin, t); tmax = Math.max(tmax, t); });
+    ov.v.values.forEach(v => { if(v !== null) vmax = Math.max(vmax, Math.abs(v)); });
+  });
+  const x = t => pad + (t - tmin) / (tmax - tmin || 1) * (W - 2*pad);
+  const y = v => H - pad - (v / (vmax || 1)) * (H - 2*pad);
+  let html = "";
+  // 测量窗阴影
+  const w0 = S.window.start.value * 1e9, w1 = S.window.end.value * 1e9;
+  html += '<rect x="' + x(w0) + '" y="' + pad + '" width="' + (x(w1)-x(w0)) +
+    '" height="' + (H-2*pad) + '" fill="#ffe9a8" opacity="0.5"/>';
+  html += '<text x="' + x(w0) + '" y="14" font-size="10">测量窗 ' +
+    S.active_interval + idText("window") + '</text>';
+  const colors = ["#06c","#090","#c60","#60c","#099","#c06","#444"];
+  let i = 0;
+  const legend = [];
+  for(const sid of Object.keys(S.overlays)){
+    const ov = S.overlays[sid];
+    const col = ov.excluded ? "#c00" : colors[i++ % colors.length];
+    const dash = ov.excluded ? ' stroke-dasharray="4 3"' : "";
+    let pts = "";
+    ov.t.values.forEach((t, k) => {
+      const v = ov.v.values[k];
+      if(v !== null) pts += x(t).toFixed(1) + "," + y(v).toFixed(1) + " ";
+    });
+    html += '<polyline points="' + pts + '" fill="none" stroke="' + col +
+      '" stroke-width="1.2"' + dash + '><title>' + ov.id + '</title></polyline>';
+    legend.push('<span style="color:' + col + '">' + sid + '</span>' +
+      idTag(ov.id) + (ov.excluded ? ' <span class="excluded">已排除</span>' : ""));
+  }
+  svg.innerHTML = html;
+  document.getElementById("overlayLegend").innerHTML = legend.join(" &nbsp; ");
+}
+function idText(s){ return "[" + s + "]"; }
+
+function renderJitter(){
+  const svg = document.getElementById("jitter");
+  const W = 920, H = 180, pad = 30;
+  if(!S.jitter.length){ svg.innerHTML = ""; return; }
+  const vals = S.jitter.map(j => j.value);
+  const max = Math.max(...vals.map(Math.abs), 1e-15);
+  const bw = (W - 2*pad) / S.jitter.length;
+  let html = '<line x1="' + pad + '" y1="' + H/2 + '" x2="' + (W-pad) + '" y2="' + H/2 + '" stroke="#999"/>';
+  S.jitter.forEach((j, i) => {
+    const h = j.value / max * (H/2 - pad);
+    const y0 = h >= 0 ? H/2 - h : H/2;
+    html += '<rect x="' + (pad + i*bw + 4) + '" y="' + y0 + '" width="' + (bw-8) +
+      '" height="' + Math.abs(h) + '" fill="#06c"><title>' + j.id + '</title></rect>';
+    html += '<text x="' + (pad + i*bw + 4) + '" y="' + (H-6) + '" font-size="9">' +
+      j.segment_id + '</text>';
+    html += '<text x="' + (pad + i*bw + 4) + '" y="' + (y0-3) + '" font-size="9">' +
+      (j.value*1e12).toFixed(1) + 'ps</text>';
+  });
+  svg.innerHTML = html;
+  document.getElementById("jitter").insertAdjacentHTML("afterend", "");
+}
+
+function renderCandidates(){
+  const el = document.getElementById("candidates");
+  let html = "";
+  for(const sid of Object.keys(S.candidates)){
+    html += "<div><b>" + sid + "</b>" + idTag("align-" + sid);
+    S.candidates[sid].forEach(c => {
+      html += '<div class="cand ' + c.status + '">' + idTag(c.candidate_id) +
+        " lag=" + fmt(c.lag_s, "s") + " score=" + c.score.toFixed(3) +
+        " 状态=" + c.status +
+        ' <button onclick="ruling(\'' + sid + '\',\'' + c.candidate_id + '\',\'accept\')">接受</button>' +
+        '<button onclick="ruling(\'' + sid + '\',\'' + c.candidate_id + '\',\'reject\')">否定</button></div>';
+    });
+    html += "</div>";
+  }
+  el.innerHTML = html;
+}
+
+function renderMeasurements(){
+  const el = document.getElementById("measurements");
+  let html = "<table><tr><th>id</th><th>段</th><th>区间版本</th><th>均值</th><th>状态</th></tr>";
+  S.measurements.forEach(m => {
+    html += "<tr><td class='id'>" + m.id + "</td><td>" + m.segment_id + "</td><td>" +
+      m.interval_version + "</td><td>" +
+      (m.mean ? fmt(m.mean.value, m.mean.unit) : "—") + "</td><td>" +
+      m.status + (m.reasons ? " (" + m.reasons.join(",") + ")" : "") + "</td></tr>";
+  });
+  el.innerHTML = html + "</table>";
+}
+
+function renderExcluded(){
+  const el = document.getElementById("excluded");
+  if(!S.excluded.length){ el.innerHTML = "无"; return; }
+  el.innerHTML = S.excluded.map(e =>
+    '<div class="excluded">' + e.segment_id + idTag("excl-" + e.segment_id) +
+    " 原因: " + e.reasons.join(", ") + "</div>").join("");
+}
+
+function renderDiagnostics(){
+  const el = document.getElementById("diagnostics");
+  let html = "";
+  S.segments.forEach(s => {
+    (s.diagnostics || []).forEach(d => {
+      html += "<div>" + s.segment_id + " " + d.field + ": " + d.reason +
+        " 原值=" + JSON.stringify(d.raw) + "</div>";
+    });
+  });
+  el.innerHTML = html || "无";
+}
+
+function renderEvents(){
+  const el = document.getElementById("events");
+  el.innerHTML = S.events.map(e =>
+    '<div class="evt">' + e.event_id + " seq=" + e.seq + " " + e.type + " " +
+    JSON.stringify(e.payload).slice(0, 120) +
+    ' <button onclick="restoreTo(' + e.seq + ')">恢复到此事件</button></div>').join("");
+}
+
+async function renderArchive(){
+  const j = await (await fetch("/api/archive")).json();
+  const el = document.getElementById("archive");
+  el.innerHTML = j.counterpoints.map(cp =>
+    "<div><b>" + cp.cp_id + "</b>（" + cp.condition + "）" +
+    " 采纳: " + cp.accepted.map(a => '<span class="id">' + a.id + "</span>").join(", ") +
+    " 未采纳: " + cp.rejected.map(a => '<span class="id">' + a.id + "</span>").join(", ") +
+    "<br>依据: " + cp.rationale.map(r => '<span class="id">' + r.event +
+      (r.rule ? "/" + r.rule : "") + "</span> " + r.detail).join("；") +
+    "</div>").join("");
+}
+
+refresh();
+</script>
+</body>
+</html>

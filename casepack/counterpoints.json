@@ -1,0 +1,225 @@
+[
+ {
+  "accepted": [
+   {
+    "basis": "actual-time-axis",
+    "id": "jitter-seg-03"
+   }
+  ],
+  "condition": "不等间隔时基",
+  "cp_id": "cp-nonuniform-timebase",
+  "expected_affected": [
+   "align-seg-03",
+   "jitter-seg-03",
+   "meas-seg-03",
+   "overlay-seg-03"
+  ],
+  "rationale": [
+   {
+    "detail": "seg-03 时基不等间隔，时间差由实际时间轴逐点相减",
+    "event": "rule-applied",
+    "rule": "nonuniform-timebase-no-index-subtraction"
+   }
+  ],
+  "rejected": [
+   {
+    "basis": "index-subtraction",
+    "id": "jitter-seg-03-naive-index",
+    "note": "索引相减结果被否定，保留备查"
+   }
+  ],
+  "rule": "nonuniform-timebase-no-index-subtraction",
+  "segment": "seg-03"
+ },
+ {
+  "accepted": [
+   {
+    "id": "meas-seg-04",
+    "status": "excluded"
+   }
+  ],
+  "condition": "竖直饱和",
+  "cp_id": "cp-vertical-saturation",
+  "expected_affected": [
+   "align-seg-04",
+   "jitter-seg-04",
+   "meas-seg-04",
+   "overlay-seg-04"
+  ],
+  "expected_excluded_reason": "vertical-saturation",
+  "rationale": [
+   {
+    "detail": "seg-04 饱和区间不进入插值",
+    "event": "rule-applied",
+    "rule": "gap-saturation-excluded-from-interpolation"
+   }
+  ],
+  "rejected": [
+   {
+    "id": "meas-seg-04-clipped-interp",
+    "note": "跨饱和区插值的结果被否定，保留备查"
+   }
+  ],
+  "rule": "gap-saturation-excluded-from-interpolation",
+  "segment": "seg-04"
+ },
+ {
+  "accepted": [
+   {
+    "decision": "accept",
+    "id": "cand-seg-01-1"
+   }
+  ],
+  "condition": "多峰对齐",
+  "cp_id": "cp-multi-peak-alignment",
+  "expected_affected": [
+   "align-seg-01"
+  ],
+  "min_candidates": 2,
+  "rationale": [
+   {
+    "detail": "双沿重复事件互相关存在多峰，全部合法候选保留",
+    "event": "rule-applied",
+    "rule": "multi-peak-alignment-candidates-retained"
+   }
+  ],
+  "rejected": [
+   {
+    "decision": "reject",
+    "id": "cand-seg-01-2",
+    "note": "次峰候选被否定但保留，可随时改判"
+   }
+  ],
+  "rule": "multi-peak-alignment-candidates-retained",
+  "segment": "seg-01"
+ },
+ {
+  "accepted": [
+   {
+    "deskew_applied_s": 2.5e-11,
+    "id": "jitter-seg-07"
+   }
+  ],
+  "condition": "通道 deskew",
+  "cp_id": "cp-channel-deskew",
+  "expected_affected": [
+   "jitter-seg-07",
+   "overlay-seg-07"
+  ],
+  "expected_deskew_s": 2.5e-11,
+  "rationale": [
+   {
+    "detail": "ch2 通道 deskew 25ps 进入抖动计算；段级 deskew 单位 tick 不可转换，留原位并附诊断",
+    "event": "calibration-applied",
+    "rule": null
+   }
+  ],
+  "rejected": [
+   {
+    "id": "jitter-seg-07-no-deskew",
+    "note": "未应用通道 deskew 的结果被否定，保留备查"
+   }
+  ],
+  "rule": null,
+  "segment": "seg-07"
+ },
+ {
+  "accepted": [
+   {
+    "id": "meas-seg-02",
+    "status": "excluded"
+   }
+  ],
+  "condition": "缺样",
+  "cp_id": "cp-missing-samples",
+  "expected_affected": [
+   "align-seg-02",
+   "jitter-seg-02",
+   "meas-seg-02",
+   "overlay-seg-02"
+  ],
+  "expected_excluded_reason": "missing-samples",
+  "rationale": [
+   {
+    "detail": "seg-02 缺样区间不进入插值",
+    "event": "rule-applied",
+    "rule": "gap-saturation-excluded-from-interpolation"
+   }
+  ],
+  "rejected": [
+   {
+    "id": "meas-seg-02-gap-interp",
+    "note": "跨缺样区插值的结果被否定，保留备查"
+   }
+  ],
+  "rule": "gap-saturation-excluded-from-interpolation",
+  "segment": "seg-02"
+ },
+ {
+  "accepted": [
+   {
+    "id": "overlay-seg-05",
+    "status": "excluded"
+   }
+  ],
+  "condition": "触发在边界",
+  "cp_id": "cp-trigger-at-boundary",
+  "expected_affected": [
+   "jitter-seg-05",
+   "meas-seg-05",
+   "overlay-seg-05"
+  ],
+  "expected_excluded_reason": "trigger-at-boundary",
+  "rationale": [
+   {
+    "detail": "触发时标落在采集边界，段被排除但保留显示",
+    "event": "segment-excluded",
+    "rule": null
+   }
+  ],
+  "rejected": [
+   {
+    "id": "jitter-seg-05-boundary-mean",
+    "note": "把边界触发纳入抖动均值的结果被否定，保留备查"
+   }
+  ],
+  "rule": null,
+  "segment": "seg-05"
+ },
+ {
+  "accepted": [
+   {
+    "id": "meas-seg-06",
+    "interval_version": "mi-v2"
+   }
+  ],
+  "condition": "区间版本修订",
+  "cp_id": "cp-interval-version-revision",
+  "expected_affected": [
+   "meas-seg-01",
+   "meas-seg-02",
+   "meas-seg-03",
+   "meas-seg-04",
+   "meas-seg-05",
+   "meas-seg-06",
+   "meas-seg-07"
+  ],
+  "expected_unaffected_prefix": "jitter-",
+  "rationale": [
+   {
+    "detail": "mi-v1 -> mi-v2 只使依赖 mi-v1 的测量失效，抖动等不受影响",
+    "event": "invalidation-scoped",
+    "rule": null
+   }
+  ],
+  "rejected": [
+   {
+    "id": "global-silent-recompute",
+    "note": "全局悄悄替换旧结论的做法被否定；旧结论按事件保留，可恢复"
+   }
+  ],
+  "revision": "rev-param-mi-v2",
+  "rule": null,
+  "segment": null
+ }
+]
