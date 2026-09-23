@@ -1,0 +1,142 @@
+[
+  {
+    "counterexample_id": "CX-01-UNEQUAL-TIMEBASE",
+    "direct_source_changed": "timebase.points_seconds",
+    "baseline_event": "01_initial_import",
+    "changed_segment": "S3",
+    "mutation": "replace uniform 4 ns assumption with actual non-uniform timestamps",
+    "adopted_result": {
+      "valid": true,
+      "basis": "SHIFT-CANDIDATES-USE-ACTUAL-TIME"
+    },
+    "not_adopted_result": {
+      "valid": false,
+      "basis": "INDEX-DIFFERENCE-AS-TIME"
+    },
+    "machine_judgment": {
+      "event_type": "derivation_rule_judgment",
+      "rule": "time_unequal_no_index_subtraction",
+      "decision": "adopt_time_coordinates"
+    }
+  },
+  {
+    "counterexample_id": "CX-02-VERTICAL-SATURATION",
+    "direct_source_changed": "CH1.saturated_intervals",
+    "baseline_event": "01_initial_import",
+    "changed_segment": "S4",
+    "mutation": "mark rail overrange from 68 ns to 80 ns",
+    "adopted_result": {
+      "valid": true,
+      "basis": "MASK-SATURATED-SAMPLES"
+    },
+    "not_adopted_result": {
+      "valid": false,
+      "basis": "INTERPOLATE-ACROSS-SATURATION"
+    },
+    "machine_judgment": {
+      "event_type": "derivation_rule_judgment",
+      "rule": "saturated_intervals_no_interpolation",
+      "decision": "exclude_interval"
+    }
+  },
+  {
+    "counterexample_id": "CX-03-MULTIPEAK-ALIGNMENT",
+    "direct_source_changed": "segment waveform pattern",
+    "baseline_event": "01_initial_import",
+    "changed_segment": "S2",
+    "mutation": "two repeated events both satisfy threshold",
+    "adopted_result": {
+      "valid": true,
+      "basis": "PRESERVE-LEGAL-LAG-8-AND-NEG8"
+    },
+    "not_adopted_result": {
+      "valid": false,
+      "basis": "KEEP-MAXIMUM-ONLY"
+    },
+    "machine_judgment": {
+      "event_type": "derivation_rule_judgment",
+      "rule": "preserve_all_cross_correlation_peaks",
+      "decision": "retain_ambiguous_candidates"
+    }
+  },
+  {
+    "counterexample_id": "CX-04-CHANNEL-DESKEW",
+    "direct_source_changed": "CH2.deskew",
+    "baseline_event": "01_initial_import",
+    "changed_segment": "S3",
+    "mutation": "change only CH2 delay by 2 ns",
+    "adopted_result": {
+      "valid": true,
+      "basis": "INVALIDATE-CH2-ONLY"
+    },
+    "not_adopted_result": {
+      "valid": false,
+      "basis": "GLOBAL-REALIGN-ALL-CHANNELS"
+    },
+    "machine_judgment": {
+      "event_type": "dependency_invalidation_judgment",
+      "rule": "local_dependency_invalidation",
+      "decision": "limit_scope_to_channel"
+    }
+  },
+  {
+    "counterexample_id": "CX-05-MISSING-SAMPLES",
+    "direct_source_changed": "CH1.raw_samples",
+    "baseline_event": "01_initial_import",
+    "changed_segment": "S4",
+    "mutation": "null raw samples at capture tail and near trigger",
+    "adopted_result": {
+      "valid": true,
+      "basis": "NULLS-REMAIN-AND-ARE-MASKED"
+    },
+    "not_adopted_result": {
+      "valid": false,
+      "basis": "FILL-MISSING-FOR-PLOT"
+    },
+    "machine_judgment": {
+      "event_type": "derivation_rule_judgment",
+      "rule": "missing_samples_no_interpolation",
+      "decision": "keep_original_nulls"
+    }
+  },
+  {
+    "counterexample_id": "CX-06-TRIGGER-AT-BOUNDARY",
+    "direct_source_changed": "trigger.timestamp",
+    "baseline_event": "01_initial_import",
+    "changed_segment": "S4",
+    "mutation": "trigger at 0 s capture_start",
+    "adopted_result": {
+      "valid": true,
+      "basis": "BOUNDARY-TRIGGER-DIAGNOSTIC"
+    },
+    "not_adopted_result": {
+      "valid": false,
+      "basis": "DROP-EDGE-TRIGGER"
+    },
+    "machine_judgment": {
+      "event_type": "trigger_boundary_judgment",
+      "rule": "boundary_trigger_is_legal",
+      "decision": "retain_with_diagnostic"
+    }
+  },
+  {
+    "counterexample_id": "CX-07-WINDOW-VERSION",
+    "direct_source_changed": "measurement window W-MAIN",
+    "baseline_event": "01_initial_import",
+    "changed_segment": "ALL",
+    "mutation": "revise interval from v1 to v2 without deleting v1",
+    "adopted_result": {
+      "valid": true,
+      "basis": "VERSIONED-WINDOW-DEPENDENCIES"
+    },
+    "not_adopted_result": {
+      "valid": false,
+      "basis": "OVERWRITE-WINDOW-GLOBALLY"
+    },
+    "machine_judgment": {
+      "event_type": "dependency_invalidation_judgment",
+      "rule": "measurement_window_versioned",
+      "decision": "retain_old_branch_state"
+    }
+  }
+]

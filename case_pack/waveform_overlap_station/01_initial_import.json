@@ -1,0 +1,629 @@
+{
+  "case_pack_id": "waveform-overlap-station-v1",
+  "title": "波形叠影台：示波器分段、触发抖动与测量窗口谱系",
+  "domain": "oscilloscope_segmented_capture_trigger_jitter_measurement_window",
+  "schema_version": "1.0",
+  "narrative_stage": "initial_import",
+  "channels": {
+    "CH1": {
+      "channel_id": "CH1",
+      "vertical_gain": {
+        "value": 1.0,
+        "unit": "mV/count",
+        "quantity": "vertical_gain"
+      },
+      "probe_attenuation": {
+        "display": "X10",
+        "ratio_ohm_field_preserved": "X10"
+      },
+      "vertical_offset": {
+        "value": 0,
+        "unit": "mV",
+        "coordinate_basis": "probe_tip_voltage"
+      },
+      "deskew": {
+        "value": 0,
+        "unit": "ns",
+        "coordinate_basis": "channel_delay_to_reference"
+      },
+      "coupling": "DC_1M"
+    },
+    "CH2": {
+      "channel_id": "CH2",
+      "vertical_gain": {
+        "value": 2.0,
+        "unit": "mV/count",
+        "quantity": "vertical_gain"
+      },
+      "probe_attenuation": {
+        "display": "1:1"
+      },
+      "vertical_offset": {
+        "value": "not-a-calibrated-offset",
+        "unit": "mV",
+        "diagnostic_expected": "OFFSET_WITHOUT_NUMERIC_VALUE"
+      },
+      "deskew": {
+        "value": 10,
+        "unit": "ns",
+        "coordinate_basis": "channel_delay_to_reference"
+      },
+      "coupling": "DC_50"
+    }
+  },
+  "segments": [
+    {
+      "segment_id": "S1",
+      "label": "reference periodic burst",
+      "timebase": {
+        "type": "uniform",
+        "origin": {
+          "value": 0,
+          "unit": "ns"
+        },
+        "increment": {
+          "value": 4,
+          "unit": "ns"
+        },
+        "units": "seconds"
+      },
+      "trigger": {
+        "timestamp": {
+          "value": 70,
+          "unit": "ns"
+        },
+        "source": "hardware_trigger_line",
+        "coordinate_basis": "segment_local_time_before_channel_deskew"
+      },
+      "channels": {
+        "CH1": {
+          "raw_samples": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            14,
+            197,
+            480,
+            197,
+            14,
+            1,
+            100,
+            198,
+            480,
+            149,
+            14,
+            0,
+            14,
+            197,
+            480,
+            197,
+            14,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "saturated_intervals": []
+        },
+        "CH2": {
+          "raw_samples": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            7,
+            99,
+            240,
+            99,
+            7,
+            0,
+            50,
+            99,
+            240,
+            75,
+            7,
+            0,
+            7,
+            99,
+            240,
+            99,
+            7,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "saturated_intervals": []
+        }
+      }
+    },
+    {
+      "segment_id": "S2",
+      "label": "double legal cross-correlation ambiguity",
+      "timebase": {
+        "type": "uniform",
+        "origin": {
+          "value": 0,
+          "unit": "ns"
+        },
+        "increment": {
+          "value": 4,
+          "unit": "ns"
+        },
+        "units": "seconds"
+      },
+      "trigger": {
+        "timestamp": {
+          "value": 78,
+          "unit": "ns"
+        },
+        "source": "hardware_trigger_line",
+        "coordinate_basis": "segment_local_time_before_channel_deskew"
+      },
+      "channels": {
+        "CH1": {
+          "raw_samples": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            14,
+            197,
+            480,
+            197,
+            14,
+            0,
+            14,
+            197,
+            480,
+            197,
+            14,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "saturated_intervals": []
+        },
+        "CH2": {
+          "raw_samples": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            7,
+            99,
+            240,
+            99,
+            7,
+            0,
+            7,
+            99,
+            240,
+            99,
+            7,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "saturated_intervals": []
+        }
+      }
+    },
+    {
+      "segment_id": "S3",
+      "label": "unequal sample intervals and channel deskew",
+      "timebase": {
+        "type": "non_uniform",
+        "points_seconds": [
+          {
+            "value": 0.0,
+            "unit": "ns"
+          },
+          {
+            "value": 4.0,
+            "unit": "ns"
+          },
+          {
+            "value": 8.0,
+            "unit": "ns"
+          },
+          {
+            "value": 12.0,
+            "unit": "ns"
+          },
+          {
+            "value": 16.0,
+            "unit": "ns"
+          },
+          {
+            "value": 20.0,
+            "unit": "ns"
+          },
+          {
+            "value": 24.0,
+            "unit": "ns"
+          },
+          {
+            "value": 28.0,
+            "unit": "ns"
+          },
+          {
+            "value": 32.0,
+            "unit": "ns"
+          },
+          {
+            "value": 36.0,
+            "unit": "ns"
+          },
+          {
+            "value": 40.0,
+            "unit": "ns"
+          },
+          {
+            "value": 44.0,
+            "unit": "ns"
+          },
+          {
+            "value": 48.0,
+            "unit": "ns"
+          },
+          {
+            "value": 52.0,
+            "unit": "ns"
+          },
+          {
+            "value": 56.0,
+            "unit": "ns"
+          },
+          {
+            "value": 64.0,
+            "unit": "ns"
+          },
+          {
+            "value": 68.0,
+            "unit": "ns"
+          },
+          {
+            "value": 72.0,
+            "unit": "ns"
+          },
+          {
+            "value": 76.0,
+            "unit": "ns"
+          },
+          {
+            "value": 80.0,
+            "unit": "ns"
+          },
+          {
+            "value": 88.0,
+            "unit": "ns"
+          },
+          {
+            "value": 92.0,
+            "unit": "ns"
+          },
+          {
+            "value": 96.0,
+            "unit": "ns"
+          },
+          {
+            "value": 104.0,
+            "unit": "ns"
+          },
+          {
+            "value": 108.0,
+            "unit": "ns"
+          }
+        ],
+        "units": "seconds",
+        "interval_rule": "actual_timestamps_no_index_subtraction"
+      },
+      "trigger": {
+        "timestamp": {
+          "value": 92,
+          "unit": "ns"
+        },
+        "source": "hardware_trigger_line",
+        "coordinate_basis": "segment_local_time_before_channel_deskew"
+      },
+      "channels": {
+        "CH1": {
+          "raw_samples": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            100,
+            198,
+            480,
+            149,
+            14,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "saturated_intervals": []
+        },
+        "CH2": {
+          "raw_samples": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            3,
+            146,
+            3
+          ],
+          "saturated_intervals": []
+        }
+      }
+    },
+    {
+      "segment_id": "S4",
+      "label": "missing samples, saturation, and boundary trigger",
+      "timebase": {
+        "type": "uniform",
+        "origin": {
+          "value": 0,
+          "unit": "ns"
+        },
+        "increment": {
+          "value": 4,
+          "unit": "ns"
+        },
+        "units": "seconds",
+        "boundary_note": "capture start is a legal boundary trigger at 0 ns"
+      },
+      "trigger": {
+        "timestamp": {
+          "value": 0,
+          "unit": "ns"
+        },
+        "source": "hardware_trigger_line",
+        "coordinate_basis": "segment_local_time_before_channel_deskew",
+        "boundary_position": "capture_start"
+      },
+      "channels": {
+        "CH1": {
+          "raw_samples": [
+            0,
+            null,
+            null,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            14,
+            197,
+            480,
+            197,
+            14,
+            1,
+            100,
+            507,
+            507,
+            149,
+            14,
+            0,
+            14,
+            197,
+            480,
+            197,
+            14,
+            0,
+            0,
+            0,
+            null,
+            null,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "saturated_intervals": [
+            {
+              "start": {
+                "value": 66,
+                "unit": "ns"
+              },
+              "end": {
+                "value": 71,
+                "unit": "ns"
+              },
+              "reason": "ADC rail overrange"
+            }
+          ]
+        },
+        "CH2": {
+          "raw_samples": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            7,
+            99,
+            240,
+            99,
+            7,
+            0,
+            50,
+            99,
+            240,
+            75,
+            7,
+            0,
+            7,
+            99,
+            240,
+            99,
+            7,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "saturated_intervals": []
+        }
+      }
+    }
+  ],
+  "measurement_window_versions": {
+    "W-MAIN": [
+      {
+        "window_id": "W-MAIN",
+        "version": 1,
+        "start": {
+          "value": 35,
+          "unit": "ns"
+        },
+        "end": {
+          "value": 95,
+          "unit": "ns"
+        },
+        "coordinate_basis": "aligned_time",
+        "status": "active",
+        "rule": "missing and saturated samples are excluded rather than interpolated"
+      }
+    ]
+  },
+  "alignment_rules": {
+    "ALIGN-REF": {
+      "rule_id": "ALIGN-REF",
+      "version": 1,
+      "reference_segment": "S1",
+      "reference_channel": "CH1",
+      "candidate_threshold": 0.4,
+      "method": "time-coordinate cross-correlation; preserve every legal peak",
+      "interpolation": "forbidden on missing or saturated intervals"
+    }
+  }
+}

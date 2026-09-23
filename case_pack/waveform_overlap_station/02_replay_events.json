@@ -1,0 +1,59 @@
+[
+  {
+    "event_index": 1,
+    "kind": "parameter_revision",
+    "rule_id": "ALIGN-REF",
+    "version": 2,
+    "patch": {
+      "candidate_threshold": 0.7
+    },
+    "reason": "tighten multi-peak acceptance threshold"
+  },
+  {
+    "event_index": 2,
+    "kind": "measurement_window_revision",
+    "window_id": "W-MAIN",
+    "version": 2,
+    "start": {
+      "value": 40,
+      "unit": "ns"
+    },
+    "end": {
+      "value": 100,
+      "unit": "ns"
+    },
+    "reason": "move derived measurement interval while retaining version 1"
+  },
+  {
+    "event_index": 3,
+    "kind": "source_data_revision",
+    "scope": "local_dependency",
+    "channel_id": "CH2",
+    "deskew": {
+      "value": 12,
+      "unit": "ns"
+    },
+    "reason": "probe cable delay recalibrated; only CH2-derived values are invalidated"
+  },
+  {
+    "event_index": 4,
+    "kind": "conflicting_manual_decisions",
+    "reference_event": 2,
+    "decisions": [
+      {
+        "branch_id": "BR-ACCEPT-LAG-8",
+        "segment_id": "S2",
+        "candidate_id": "cand:lag:8e-09s",
+        "decision": "accept",
+        "reason": "reviewer selects the earlier repeat"
+      },
+      {
+        "branch_id": "BR-ACCEPT-LAG-NEG-8",
+        "segment_id": "S2",
+        "candidate_id": "cand:lag:-1.6e-08s",
+        "decision": "accept",
+        "reason": "second reviewer selects the other legal repeat and conflicts with branch one"
+      }
+    ]
+  }
+]
