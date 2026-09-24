@@ -1,0 +1,945 @@
+{
+  "case_id": "oscilloscope-lineage-v1",
+  "title": "波形叠影台：示波器分段、触发抖动与测量窗口谱系",
+  "domain": "signal_integrity_oscilloscope_segmented_capture",
+  "channels": {
+    "CH1": {
+      "label": "通道1",
+      "probe_default": "10x"
+    },
+    "CH2": {
+      "label": "通道2",
+      "probe_default": "10x",
+      "deskew_initial_ns": 5.0
+    }
+  },
+  "rule_versions": {
+    "derive": "derive-1.0.0",
+    "measurement_window": "w1",
+    "alignment": {
+      "peak_prominence_ratio": 0.9,
+      "min_overlap": 0.6
+    },
+    "note": "初始规则与参数版本"
+  },
+  "measurement_window_revision": {
+    "version": "w2",
+    "start": {
+      "raw_repr": "6",
+      "unit": "ns",
+      "coordinate_basis": "relative_to_segment_origin"
+    },
+    "end": {
+      "raw_repr": "18",
+      "unit": "ns",
+      "coordinate_basis": "relative_to_segment_origin"
+    },
+    "reason": "测量区间收紧到脉冲主体"
+  },
+  "segments": [
+    {
+      "segment_no": 1,
+      "label": "S1 参考重复脉冲 CH1",
+      "channel": "CH1",
+      "note": "参考段，规则脉冲",
+      "samples": {
+        "raw_repr": [
+          128,
+          128,
+          128,
+          128,
+          128,
+          128,
+          128,
+          129,
+          133,
+          149,
+          183,
+          227,
+          248,
+          227,
+          183,
+          149,
+          133,
+          129,
+          128,
+          128,
+          128,
+          128,
+          128,
+          128,
+          128,
+          128,
+          128,
+          128,
+          128,
+          128,
+          128,
+          128,
+          128,
+          128,
+          128,
+          128,
+          128,
+          128,
+          128,
+          128,
+          128,
+          128,
+          128,
+          128
+        ],
+        "missing_indices": [],
+        "unit": "ADC",
+        "coordinate_basis": "adc_code_8bit",
+        "adc_full_scale": 255,
+        "adc_baseline": 128,
+        "saturation": {
+          "rail_high": 255,
+          "rail_low": 0
+        },
+        "note": "参考段，规则脉冲"
+      },
+      "timebase": {
+        "raw_repr": "1.0",
+        "unit": "ns",
+        "coordinate_basis": "uniform_sample_interval"
+      },
+      "gain": {
+        "raw_repr": "10",
+        "unit": "mV/ADC",
+        "coordinate_basis": "vertical_gain_per_adc_code"
+      },
+      "probe": {
+        "raw_repr": "10x",
+        "unit": "ratio",
+        "coordinate_basis": "scope_probe_attenuation"
+      },
+      "trigger_ts": {
+        "raw_repr": "100.0",
+        "unit": "us",
+        "coordinate_basis": "capture_run_clock"
+      },
+      "deskew": {
+        "raw_repr": "0",
+        "unit": "ns",
+        "coordinate_basis": "channel_deskew_vs_CH1"
+      },
+      "measurement_window": {
+        "version": "w1",
+        "start": {
+          "raw_repr": "8.0",
+          "unit": "ns",
+          "coordinate_basis": "relative_to_segment_origin"
+        },
+        "end": {
+          "raw_repr": "20.0",
+          "unit": "ns",
+          "coordinate_basis": "relative_to_segment_origin"
+        }
+      }
+    },
+    {
+      "segment_no": 2,
+      "label": "S2 抖动重复段 CH1",
+      "channel": "CH1",
+      "note": "触发抖动 48ns（物理时间口径）",
+      "samples": {
+        "raw_repr": [
+          128,
+          128,
+          128,
+          128,
+          128,
+          128,
+          128,
+          128,
+          128,
+          129,
+          133,
+          149,
+          183,
+          227,
+          248,
+          227,
+          183,
+          149,
+          133,
+          129,
+          128,
+          128,
+          128,
+          128,
+          128,
+          128,
+          128,
+          128,
+          128,
+          128,
+          128,
+          128,
+          128,
+          128,
+          128,
+          128,
+          128,
+          128,
+          128,
+          128,
+          128,
+          128,
+          128,
+          128
+        ],
+        "missing_indices": [],
+        "unit": "ADC",
+        "coordinate_basis": "adc_code_8bit",
+        "adc_full_scale": 255,
+        "adc_baseline": 128,
+        "saturation": {
+          "rail_high": 255,
+          "rail_low": 0
+        },
+        "note": "触发抖动 48ns（物理时间口径）"
+      },
+      "timebase": {
+        "raw_repr": "1.0",
+        "unit": "ns",
+        "coordinate_basis": "uniform_sample_interval"
+      },
+      "gain": {
+        "raw_repr": "10",
+        "unit": "mV/ADC",
+        "coordinate_basis": "vertical_gain_per_adc_code"
+      },
+      "probe": {
+        "raw_repr": "10x",
+        "unit": "ratio",
+        "coordinate_basis": "scope_probe_attenuation"
+      },
+      "trigger_ts": {
+        "raw_repr": "100.05",
+        "unit": "us",
+        "coordinate_basis": "capture_run_clock"
+      },
+      "deskew": {
+        "raw_repr": "0",
+        "unit": "ns",
+        "coordinate_basis": "channel_deskew_vs_CH1"
+      },
+      "measurement_window": {
+        "version": "w1",
+        "start": {
+          "raw_repr": "8.0",
+          "unit": "ns",
+          "coordinate_basis": "relative_to_segment_origin"
+        },
+        "end": {
+          "raw_repr": "20.0",
+          "unit": "ns",
+          "coordinate_basis": "relative_to_segment_origin"
+        }
+      }
+    },
+    {
+      "segment_no": 3,
+      "label": "S3 不等间隔时基 CH1",
+      "channel": "CH1",
+      "note": "20ns 后采样间隔变为 2ns",
+      "samples": {
+        "raw_repr": [
+          128,
+          128,
+          128,
+          128,
+          128,
+          128,
+          128,
+          128,
+          129,
+          133,
+          149,
+          183,
+          227,
+          248,
+          227,
+          183,
+          149,
+          133,
+          129,
+          128,
+          128,
+          128,
+          128,
+          128,
+          128,
+          128,
+          128,
+          128,
+          128,
+          128,
+          128,
+          128
+        ],
+        "missing_indices": [],
+        "unit": "ADC",
+        "coordinate_basis": "adc_code_8bit",
+        "adc_full_scale": 255,
+        "adc_baseline": 128,
+        "saturation": {
+          "rail_high": 255,
+          "rail_low": 0
+        },
+        "note": "20ns 后采样间隔变为 2ns"
+      },
+      "timebase": {
+        "raw_repr": [
+          0.0,
+          1.0,
+          2.0,
+          3.0,
+          4.0,
+          5.0,
+          6.0,
+          7.0,
+          8.0,
+          9.0,
+          10.0,
+          11.0,
+          12.0,
+          13.0,
+          14.0,
+          15.0,
+          16.0,
+          17.0,
+          18.0,
+          19.0,
+          20.0,
+          24.0,
+          26.0,
+          28.0,
+          30.0,
+          32.0,
+          34.0,
+          36.0,
+          38.0,
+          40.0,
+          42.0,
+          44.0
+        ],
+        "unit": "ns",
+        "coordinate_basis": "sample_times_relative_to_segment_origin",
+        "kind": "irregular"
+      },
+      "gain": {
+        "raw_repr": "10",
+        "unit": "mV/ADC",
+        "coordinate_basis": "vertical_gain_per_adc_code"
+      },
+      "probe": {
+        "raw_repr": "10x",
+        "unit": "ratio",
+        "coordinate_basis": "scope_probe_attenuation"
+      },
+      "trigger_ts": {
+        "raw_repr": "100.1",
+        "unit": "us",
+        "coordinate_basis": "capture_run_clock"
+      },
+      "deskew": {
+        "raw_repr": "0",
+        "unit": "ns",
+        "coordinate_basis": "channel_deskew_vs_CH1"
+      },
+      "measurement_window": {
+        "version": "w1",
+        "start": {
+          "raw_repr": "8.0",
+          "unit": "ns",
+          "coordinate_basis": "relative_to_segment_origin"
+        },
+        "end": {
+          "raw_repr": "26.0",
+          "unit": "ns",
+          "coordinate_basis": "relative_to_segment_origin"
+        }
+      }
+    },
+    {
+      "segment_no": 4,
+      "label": "S4 竖直饱和 CH2",
+      "channel": "CH2",
+      "note": "峰值削顶至 ADC 满量程",
+      "samples": {
+        "raw_repr": [
+          128,
+          128,
+          128,
+          128,
+          128,
+          128,
+          128,
+          129,
+          135,
+          154,
+          197,
+          251,
+          255,
+          251,
+          197,
+          154,
+          135,
+          129,
+          128,
+          128,
+          128,
+          128,
+          128,
+          128,
+          128,
+          128,
+          128,
+          128,
+          128,
+          128,
+          128,
+          128,
+          128,
+          128,
+          128,
+          128,
+          128,
+          128,
+          128,
+          128,
+          128,
+          128,
+          128,
+          128
+        ],
+        "missing_indices": [],
+        "unit": "ADC",
+        "coordinate_basis": "adc_code_8bit",
+        "adc_full_scale": 255,
+        "adc_baseline": 128,
+        "saturation": {
+          "rail_high": 255,
+          "rail_low": 0
+        },
+        "note": "峰值削顶至 ADC 满量程"
+      },
+      "timebase": {
+        "raw_repr": "1.0",
+        "unit": "ns",
+        "coordinate_basis": "uniform_sample_interval"
+      },
+      "gain": {
+        "raw_repr": "10",
+        "unit": "mV/ADC",
+        "coordinate_basis": "vertical_gain_per_adc_code"
+      },
+      "probe": {
+        "raw_repr": "10x",
+        "unit": "ratio",
+        "coordinate_basis": "scope_probe_attenuation"
+      },
+      "trigger_ts": {
+        "raw_repr": "100.15",
+        "unit": "us",
+        "coordinate_basis": "capture_run_clock"
+      },
+      "deskew": {
+        "raw_repr": "0",
+        "unit": "ns",
+        "coordinate_basis": "channel_deskew_vs_CH1"
+      },
+      "measurement_window": {
+        "version": "w1",
+        "start": {
+          "raw_repr": "8.0",
+          "unit": "ns",
+          "coordinate_basis": "relative_to_segment_origin"
+        },
+        "end": {
+          "raw_repr": "20.0",
+          "unit": "ns",
+          "coordinate_basis": "relative_to_segment_origin"
+        }
+      }
+    },
+    {
+      "segment_no": 5,
+      "label": "S5 多峰对齐 CH1",
+      "channel": "CH1",
+      "note": "两个等幅峰，对齐不唯一",
+      "samples": {
+        "raw_repr": [
+          128,
+          128,
+          128,
+          128,
+          128,
+          128,
+          128,
+          129,
+          133,
+          149,
+          183,
+          227,
+          248,
+          227,
+          183,
+          149,
+          133,
+          129,
+          133,
+          149,
+          183,
+          227,
+          248,
+          227,
+          183,
+          149,
+          133,
+          129,
+          128,
+          128,
+          128,
+          128,
+          128,
+          128,
+          128,
+          128,
+          128,
+          128,
+          128,
+          128,
+          128,
+          128,
+          128,
+          128
+        ],
+        "missing_indices": [],
+        "unit": "ADC",
+        "coordinate_basis": "adc_code_8bit",
+        "adc_full_scale": 255,
+        "adc_baseline": 128,
+        "saturation": {
+          "rail_high": 255,
+          "rail_low": 0
+        },
+        "note": "两个等幅峰，对齐不唯一"
+      },
+      "timebase": {
+        "raw_repr": "1.0",
+        "unit": "ns",
+        "coordinate_basis": "uniform_sample_interval"
+      },
+      "gain": {
+        "raw_repr": "10",
+        "unit": "mV/ADC",
+        "coordinate_basis": "vertical_gain_per_adc_code"
+      },
+      "probe": {
+        "raw_repr": "10x",
+        "unit": "ratio",
+        "coordinate_basis": "scope_probe_attenuation"
+      },
+      "trigger_ts": {
+        "raw_repr": "100.2",
+        "unit": "us",
+        "coordinate_basis": "capture_run_clock"
+      },
+      "deskew": {
+        "raw_repr": "0",
+        "unit": "ns",
+        "coordinate_basis": "channel_deskew_vs_CH1"
+      },
+      "measurement_window": {
+        "version": "w1",
+        "start": {
+          "raw_repr": "8.0",
+          "unit": "ns",
+          "coordinate_basis": "relative_to_segment_origin"
+        },
+        "end": {
+          "raw_repr": "26.0",
+          "unit": "ns",
+          "coordinate_basis": "relative_to_segment_origin"
+        }
+      }
+    },
+    {
+      "segment_no": 6,
+      "label": "S6 通道 deskew CH2",
+      "channel": "CH2",
+      "note": "CH2 相对 CH1 deskew +5ns",
+      "samples": {
+        "raw_repr": [
+          128,
+          128,
+          128,
+          128,
+          128,
+          128,
+          128,
+          129,
+          133,
+          149,
+          183,
+          227,
+          248,
+          227,
+          183,
+          149,
+          133,
+          129,
+          128,
+          128,
+          128,
+          128,
+          128,
+          128,
+          128,
+          128,
+          128,
+          128,
+          128,
+          128,
+          128,
+          128,
+          128,
+          128,
+          128,
+          128,
+          128,
+          128,
+          128,
+          128,
+          128,
+          128,
+          128,
+          128
+        ],
+        "missing_indices": [],
+        "unit": "ADC",
+        "coordinate_basis": "adc_code_8bit",
+        "adc_full_scale": 255,
+        "adc_baseline": 128,
+        "saturation": {
+          "rail_high": 255,
+          "rail_low": 0
+        },
+        "note": "CH2 相对 CH1 deskew +5ns"
+      },
+      "timebase": {
+        "raw_repr": "1.0",
+        "unit": "ns",
+        "coordinate_basis": "uniform_sample_interval"
+      },
+      "gain": {
+        "raw_repr": "10",
+        "unit": "mV/ADC",
+        "coordinate_basis": "vertical_gain_per_adc_code"
+      },
+      "probe": {
+        "raw_repr": "10x",
+        "unit": "ratio",
+        "coordinate_basis": "scope_probe_attenuation"
+      },
+      "trigger_ts": {
+        "raw_repr": "100.25",
+        "unit": "us",
+        "coordinate_basis": "capture_run_clock"
+      },
+      "deskew": {
+        "raw_repr": "5",
+        "unit": "ns",
+        "coordinate_basis": "channel_deskew_vs_CH1"
+      },
+      "measurement_window": {
+        "version": "w1",
+        "start": {
+          "raw_repr": "8.0",
+          "unit": "ns",
+          "coordinate_basis": "relative_to_segment_origin"
+        },
+        "end": {
+          "raw_repr": "20.0",
+          "unit": "ns",
+          "coordinate_basis": "relative_to_segment_origin"
+        }
+      }
+    },
+    {
+      "segment_no": 7,
+      "label": "S7 缺样 CH1",
+      "channel": "CH1",
+      "note": "索引 14、15 采样缺失",
+      "samples": {
+        "raw_repr": [
+          128,
+          128,
+          128,
+          128,
+          128,
+          128,
+          128,
+          129,
+          133,
+          149,
+          183,
+          227,
+          248,
+          227,
+          null,
+          null,
+          133,
+          129,
+          128,
+          128,
+          128,
+          128,
+          128,
+          128,
+          128,
+          128,
+          128,
+          128,
+          128,
+          128,
+          128,
+          128,
+          128,
+          128,
+          128,
+          128,
+          128,
+          128,
+          128,
+          128,
+          128,
+          128,
+          128,
+          128
+        ],
+        "missing_indices": [
+          14,
+          15
+        ],
+        "unit": "ADC",
+        "coordinate_basis": "adc_code_8bit",
+        "adc_full_scale": 255,
+        "adc_baseline": 128,
+        "saturation": {
+          "rail_high": 255,
+          "rail_low": 0
+        },
+        "note": "索引 14、15 采样缺失"
+      },
+      "timebase": {
+        "raw_repr": "1.0",
+        "unit": "ns",
+        "coordinate_basis": "uniform_sample_interval"
+      },
+      "gain": {
+        "raw_repr": "10",
+        "unit": "mV/ADC",
+        "coordinate_basis": "vertical_gain_per_adc_code"
+      },
+      "probe": {
+        "raw_repr": "10x",
+        "unit": "ratio",
+        "coordinate_basis": "scope_probe_attenuation"
+      },
+      "trigger_ts": {
+        "raw_repr": "100.3",
+        "unit": "us",
+        "coordinate_basis": "capture_run_clock"
+      },
+      "deskew": {
+        "raw_repr": "0",
+        "unit": "ns",
+        "coordinate_basis": "channel_deskew_vs_CH1"
+      },
+      "measurement_window": {
+        "version": "w1",
+        "start": {
+          "raw_repr": "8.0",
+          "unit": "ns",
+          "coordinate_basis": "relative_to_segment_origin"
+        },
+        "end": {
+          "raw_repr": "20.0",
+          "unit": "ns",
+          "coordinate_basis": "relative_to_segment_origin"
+        }
+      }
+    },
+    {
+      "segment_no": 8,
+      "label": "S8 触发在边界 CH1",
+      "channel": "CH1",
+      "note": "峰贴近采集起点；增益未标定，电压不可用但 ADC 仍显示",
+      "samples": {
+        "raw_repr": [
+          149,
+          183,
+          227,
+          248,
+          227,
+          183,
+          149,
+          133,
+          129,
+          128,
+          128,
+          128,
+          128,
+          128,
+          128,
+          128,
+          128,
+          128,
+          128,
+          128,
+          128,
+          128,
+          128,
+          128,
+          128,
+          128,
+          128,
+          128,
+          128,
+          128,
+          128,
+          128,
+          128,
+          128,
+          128,
+          128,
+          128,
+          128,
+          128,
+          128,
+          128,
+          128,
+          128,
+          128
+        ],
+        "missing_indices": [],
+        "unit": "ADC",
+        "coordinate_basis": "adc_code_8bit",
+        "adc_full_scale": 255,
+        "adc_baseline": 128,
+        "saturation": {
+          "rail_high": 255,
+          "rail_low": 0
+        },
+        "note": "峰贴近采集起点；增益未标定，电压不可用但 ADC 仍显示"
+      },
+      "timebase": {
+        "raw_repr": "1.0",
+        "unit": "ns",
+        "coordinate_basis": "uniform_sample_interval"
+      },
+      "gain": {
+        "raw_repr": "待标定",
+        "unit": "mV/ADC",
+        "coordinate_basis": "vertical_gain_per_adc_code"
+      },
+      "probe": {
+        "raw_repr": "10x",
+        "unit": "ratio",
+        "coordinate_basis": "scope_probe_attenuation"
+      },
+      "trigger_ts": {
+        "raw_repr": "100.35",
+        "unit": "us",
+        "coordinate_basis": "capture_run_clock"
+      },
+      "deskew": {
+        "raw_repr": "0",
+        "unit": "ns",
+        "coordinate_basis": "channel_deskew_vs_CH1"
+      },
+      "measurement_window": {
+        "version": "w1",
+        "start": {
+          "raw_repr": "0.0",
+          "unit": "ns",
+          "coordinate_basis": "relative_to_segment_origin"
+        },
+        "end": {
+          "raw_repr": "12.0",
+          "unit": "ns",
+          "coordinate_basis": "relative_to_segment_origin"
+        }
+      }
+    }
+  ],
+  "narrative": [
+    {
+      "step": 1,
+      "kind": "import",
+      "text": "信号完整性团队导入 8 段分段捕获、触发标记与通道标定。"
+    },
+    {
+      "step": 2,
+      "kind": "verify_sources",
+      "text": "核对每段原采样、时基、竖直增益、探头衰减、触发时标、deskew、测量区间版本。"
+    },
+    {
+      "step": 3,
+      "kind": "boundary_check",
+      "text": "触发不等间隔时基/饱和/多峰/deskew/缺样/边界/区间修订边界组合。"
+    },
+    {
+      "step": 4,
+      "kind": "branch",
+      "text": "建立第二分支，检验物理时间口径与多候选保留。"
+    },
+    {
+      "step": 5,
+      "kind": "parameter_revision",
+      "text": "对齐参数修订（peak_prominence 0.90 -> 0.80），按依赖范围失效。"
+    },
+    {
+      "step": 6,
+      "kind": "local_source_change",
+      "text": "只修订 S6 deskew 5ns -> 3ns，失效范围仅限该段链路。"
+    },
+    {
+      "step": 7,
+      "kind": "conflict",
+      "text": "两个窗口同时裁定，后提交者看到 409 版本冲突与双方差异。"
+    },
+    {
+      "step": 8,
+      "kind": "review",
+      "text": "页面查看叠影/抖动分布/触发候选/测量窗/排除原因，完成裁定。"
+    },
+    {
+      "step": 9,
+      "kind": "history",
+      "text": "导出、删库、重导、重开，身份、顺序、来源关系保持。"
+    }
+  ],
+  "expected": {
+    "jitter_ns_by_segment": {
+      "2": 46.0
+    },
+    "multi_peak_segment": 5,
+    "saturated_segment": 4,
+    "missing_segment": 7,
+    "irregular_segment": 3,
+    "deskew_segment": 6,
+    "boundary_segment": 8,
+    "unconvertible_segment": 8,
+    "window_versions": [
+      "w1",
+      "w2"
+    ]
+  }
+}
