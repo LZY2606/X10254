@@ -1,0 +1,104 @@
+<!doctype html>
+<html lang="zh">
+<head>
+<meta charset="utf-8"/>
+<title>波形叠影台 · 分段对齐 / 触发抖动审阅</title>
+<style>
+  :root { color-scheme: dark; }
+  body { margin:0; font:13px/1.5 -apple-system,"Segoe UI",sans-serif;
+         background:#0b1020; color:#e2e8f0; }
+  header { padding:10px 16px; background:#111827; display:flex; gap:12px;
+           align-items:center; flex-wrap:wrap; }
+  header h1 { font-size:15px; margin:0; font-weight:600; }
+  main { display:grid; grid-template-columns: 300px 1fr; gap:12px; padding:12px; }
+  .panel { background:#0f172a; border:1px solid #1e293b; border-radius:10px;
+           padding:10px 12px; margin-bottom:12px; }
+  .panel h2 { font-size:12px; text-transform:uppercase; letter-spacing:.06em;
+              color:#93c5fd; margin:0 0 8px; }
+  button { background:#1d4ed8; color:white; border:0; border-radius:6px;
+           padding:5px 10px; cursor:pointer; font-size:12px; margin:2px 4px 2px 0;}
+  button.ghost { background:#334155; }
+  button.danger { background:#b91c1c; }
+  button:disabled { opacity:.4; cursor:not-allowed; }
+  select,input { background:#0b1020; color:#e2e8f0; border:1px solid #334155;
+                 border-radius:6px; padding:4px 6px; font-size:12px; }
+  table { border-collapse:collapse; width:100%; font-size:12px; }
+  td,th { border-bottom:1px solid #1e293b; padding:3px 5px; text-align:left;
+          vertical-align:top; }
+  .tag { display:inline-block; background:#1e293b; border-radius:4px;
+         padding:0 5px; font-size:11px; margin:1px; }
+  .tag.excl { background:#7f1d1d; } .tag.warn { background:#78350f; }
+  .tag.ok { background:#14532d; } .tag.info { background:#1e3a8a; }
+  .mono { font-family:ui-monospace,Menlo,monospace; font-size:11px;
+          color:#94a3b8; word-break:break-all; }
+  .step { border-left:3px solid #334155; padding:6px 8px; margin:6px 0;
+          border-radius:0 6px 6px 0; }
+  .step.active { border-color:#38bdf8; background:#0b2237; }
+  .step.done { border-color:#22c55e; }
+  .step p { margin:3px 0; color:#cbd5e1; }
+  .cand { background:#0b1020; border:1px solid #1e293b; border-radius:6px;
+          padding:6px; margin:4px 0; }
+  .cand.sel { border-color:#38bdf8; }
+  .toast { position:fixed; right:14px; bottom:14px; max-width:420px;
+           background:#111827; border:1px solid #334155; border-radius:8px;
+           padding:10px 12px; display:none; white-space:pre-wrap; }
+  svg { width:100%; height:auto; background:#0b1020; border-radius:8px; }
+  details summary { cursor:pointer; color:#93c5fd; }
+  .muted { color:#94a3b8; }
+</style>
+</head>
+<body>
+<header>
+  <h1>波形叠影台：示波器分段、触发抖动与测量窗口谱系</h1>
+  <span id="branch-label" class="tag info">branch main</span>
+  <span id="tip-label" class="tag">tip —</span>
+  <span style="flex:1"></span>
+  <select id="branch-select"></select>
+  <button class="ghost" id="btn-refresh">刷新视图</button>
+  <button id="btn-load">载入仓库示例</button>
+  <button class="ghost" id="btn-export">导出档案</button>
+  <button class="danger" id="btn-roundtrip">删除库→再导入</button>
+</header>
+<main>
+  <div>
+    <div class="panel">
+      <h2>复核叙事（不可跳过的可见路径）</h2>
+      <div id="steps"></div>
+    </div>
+    <div class="panel">
+      <h2>事件 / 分支谱系（点击回看当时结论）</h2>
+      <div id="timeline"></div>
+    </div>
+    <div class="panel">
+      <h2>并发冲突演示</h2>
+      <p class="muted">两个审阅者从同一基线各自保存一个测量窗版本，后提交者收到 409 与双方差异。</p>
+      <button id="btn-conflict-a">审阅者A 保存 v1</button>
+      <button id="btn-conflict-b">审阅者B 保存 v2（同基线）</button>
+    </div>
+  </div>
+  <div>
+    <div class="panel">
+      <h2>① 叠影（对齐重复事件）</h2>
+      <img id="img-overlay" alt="overlay"/>
+    </div>
+    <div class="panel">
+      <h2>② 触发抖动分布</h2>
+      <img id="img-jitter" alt="jitter"/>
+    </div>
+    <div class="panel">
+      <h2>③ 分段 · 触发候选 · 测量窗 · 被排除段原因</h2>
+      <div id="segments"></div>
+    </div>
+    <div class="panel">
+      <h2>测量窗版本（参数修订）</h2>
+      <span id="window-now"></span>
+      <button id="btn-win-v1">用 v1 保存</button>
+      <button id="btn-win-v2">用 v2 保存</button>
+      <button class="ghost" id="btn-patch">局部源数据改动（seg-08/CH1 标记）</button>
+    </div>
+  </div>
+</main>
+<div class="toast" id="toast"></div>
+<script src="/static/app.js"></script>
+</body>
+</html>
