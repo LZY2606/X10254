@@ -1,0 +1,18 @@
+{
+  "windows": [
+    {
+      "window_id": "W1",
+      "label": "post-trigger eye",
+      "t0": "10 ns",
+      "t1": "60 ns",
+      "note": "v1 initial window"
+    },
+    {
+      "window_id": "W2",
+      "label": "long hold",
+      "t0": "120 ns",
+      "t1": "180 ns",
+      "note": "segments with no valid samples here are excluded"
+    }
+  ]
+}

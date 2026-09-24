@@ -1,0 +1,48 @@
+{
+  "case_id": "case:waveform-overlay-lineage",
+  "title": "波形叠影台：示波器分段、触发抖动与测量窗口谱系",
+  "domain": "signal-integrity/oscilloscope-segmented-capture",
+  "adc_full_scale": 2048,
+  "channels": [
+    {
+      "channel_id": "CH1",
+      "vertical_gain": "5 mV/code",
+      "probe_attenuation": "10x",
+      "deskew": "0 ns",
+      "label": "CLK probe A"
+    },
+    {
+      "channel_id": "CH2",
+      "vertical_gain": "5 mV/code",
+      "probe_attenuation": "1x",
+      "deskew": "5 ns",
+      "label": "DATA probe B"
+    }
+  ],
+  "segments": [
+    "S1",
+    "S2",
+    "S3",
+    "S4",
+    "S5",
+    "S6",
+    "S7",
+    "S8",
+    "S9",
+    "S10"
+  ],
+  "windows": [
+    "W1",
+    "W2"
+  ],
+  "params": {
+    "peak_threshold": 0.3,
+    "tie_tolerance": 0.005,
+    "rule_version": "rules-2026.09"
+  },
+  "narrative": [
+    "导入分段捕获、触发标记与通道标定，对齐重复事件并审查测量分布。",
+    "初始核对：每段原采样、时基、竖直增益、探头衰减、触发时标、deskew、测量窗口版本化。",
+    "边界组合：不等间隔时基、竖直饱和、多峰对齐、通道 deskew、缺样、触发在边界、区间版本修订。"
+  ]
+}
