@@ -1,0 +1,15 @@
+{
+  "channel_id": "chE",
+  "vertical_gain": {
+    "raw_representation": "1.0 mV/count",
+    "unit": "V/count"
+  },
+  "probe_attenuation": {
+    "raw_representation": "1x",
+    "unit": "ratio"
+  },
+  "deskew": {
+    "raw_representation": "0 ps",
+    "coordinate_basis": "channel/reference_trigger"
+  }
+}

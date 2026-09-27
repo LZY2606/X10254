@@ -1,0 +1,8 @@
+{
+  "window_id": "meas_window",
+  "version": "v1",
+  "start_ns": -0.4,
+  "end_ns": 2.0,
+  "coordinate_basis": "trigger_relative_ns",
+  "quantity": "pulse_area"
+}

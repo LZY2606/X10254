@@ -1,0 +1,522 @@
+{
+  "case_id": "waveform-overlay-lineage",
+  "files": {
+    "files/chA_calibration.json": {
+      "bytes_base64": "ewogICJjaGFubmVsX2lkIjogImNoQSIsCiAgInZlcnRpY2FsX2dhaW4iOiB7CiAgICAicmF3X3JlcHJlc2VudGF0aW9uIjogIjEuMCBtVi9jb3VudCIsCiAgICAidW5pdCI6ICJWL2NvdW50IgogIH0sCiAgInByb2JlX2F0dGVudWF0aW9uIjogewogICAgInJhd19yZXByZXNlbnRhdGlvbiI6ICIxeCIsCiAgICAidW5pdCI6ICJyYXRpbyIKICB9LAogICJkZXNrZXciOiB7CiAgICAicmF3X3JlcHJlc2VudGF0aW9uIjogIjAgcHMiLAogICAgImNvb3JkaW5hdGVfYmFzaXMiOiAiY2hhbm5lbC9yZWZlcmVuY2VfdHJpZ2dlciIKICB9Cn0K",
+      "channel_id": "chA",
+      "media_type": "application/json",
+      "role": "channel_calibration",
+      "sha256": "9a6b2e04e2a48226cf26165c27529456cc3bec7a4b2b68d495055dc8aaf2bdea"
+    },
+    "files/chB_calibration.json": {
+      "bytes_base64": "ewogICJjaGFubmVsX2lkIjogImNoQiIsCiAgInZlcnRpY2FsX2dhaW4iOiB7CiAgICAicmF3X3JlcHJlc2VudGF0aW9uIjogIjgwMCDCtVYvY291bnQiLAogICAgInVuaXQiOiAiVi9jb3VudCIKICB9LAogICJwcm9iZV9hdHRlbnVhdGlvbiI6IHsKICAgICJyYXdfcmVwcmVzZW50YXRpb24iOiAiMTB4IiwKICAgICJ1bml0IjogInJhdGlvIgogIH0sCiAgImRlc2tldyI6IHsKICAgICJyYXdfcmVwcmVzZW50YXRpb24iOiAiMCBwcyIsCiAgICAiY29vcmRpbmF0ZV9iYXNpcyI6ICJjaGFubmVsL3JlZmVyZW5jZV90cmlnZ2VyIgogIH0KfQo=",
+      "channel_id": "chB",
+      "media_type": "application/json",
+      "role": "channel_calibration",
+      "sha256": "321ac7b27f53cc45418a3b7e398921bb173d27b9261966e45e9f7a6152877ab2"
+    },
+    "files/chC_calibration.json": {
+      "bytes_base64": "ewogICJjaGFubmVsX2lkIjogImNoQyIsCiAgInZlcnRpY2FsX2dhaW4iOiB7CiAgICAicmF3X3JlcHJlc2VudGF0aW9uIjogIjEuMCBtVi9jb3VudCIsCiAgICAidW5pdCI6ICJWL2NvdW50IgogIH0sCiAgInByb2JlX2F0dGVudWF0aW9uIjogewogICAgInJhd19yZXByZXNlbnRhdGlvbiI6ICIxeCIsCiAgICAidW5pdCI6ICJyYXRpbyIKICB9LAogICJkZXNrZXciOiB7CiAgICAicmF3X3JlcHJlc2VudGF0aW9uIjogIjAgcHMiLAogICAgImNvb3JkaW5hdGVfYmFzaXMiOiAiY2hhbm5lbC9yZWZlcmVuY2VfdHJpZ2dlciIKICB9Cn0K",
+      "channel_id": "chC",
+      "media_type": "application/json",
+      "role": "channel_calibration",
+      "sha256": "909b00ef950b974f511149dc2fd48ec4b3d0e3819767132a05b6ef7e26f4209c"
+    },
+    "files/chD_calibration.json": {
+      "bytes_base64": "ewogICJjaGFubmVsX2lkIjogImNoRCIsCiAgInZlcnRpY2FsX2dhaW4iOiB7CiAgICAicmF3X3JlcHJlc2VudGF0aW9uIjogIjEuMCBtVi9jb3VudCIsCiAgICAidW5pdCI6ICJWL2NvdW50IgogIH0sCiAgInByb2JlX2F0dGVudWF0aW9uIjogewogICAgInJhd19yZXByZXNlbnRhdGlvbiI6ICIxeCIsCiAgICAidW5pdCI6ICJyYXRpbyIKICB9LAogICJkZXNrZXciOiB7CiAgICAicmF3X3JlcHJlc2VudGF0aW9uIjogIjM1MCBwcyIsCiAgICAiY29vcmRpbmF0ZV9iYXNpcyI6ICJjaGFubmVsL3JlZmVyZW5jZV90cmlnZ2VyIgogIH0KfQo=",
+      "channel_id": "chD",
+      "media_type": "application/json",
+      "role": "channel_calibration",
+      "sha256": "118b7c5c597d3cfb823fd936f17648edaf735c70f17b95fb90050dfc01d26dc9"
+    },
+    "files/chE_calibration.json": {
+      "bytes_base64": "ewogICJjaGFubmVsX2lkIjogImNoRSIsCiAgInZlcnRpY2FsX2dhaW4iOiB7CiAgICAicmF3X3JlcHJlc2VudGF0aW9uIjogIjEuMCBtVi9jb3VudCIsCiAgICAidW5pdCI6ICJWL2NvdW50IgogIH0sCiAgInByb2JlX2F0dGVudWF0aW9uIjogewogICAgInJhd19yZXByZXNlbnRhdGlvbiI6ICIxeCIsCiAgICAidW5pdCI6ICJyYXRpbyIKICB9LAogICJkZXNrZXciOiB7CiAgICAicmF3X3JlcHJlc2VudGF0aW9uIjogIjAgcHMiLAogICAgImNvb3JkaW5hdGVfYmFzaXMiOiAiY2hhbm5lbC9yZWZlcmVuY2VfdHJpZ2dlciIKICB9Cn0K",
+      "channel_id": "chE",
+      "media_type": "application/json",
+      "role": "channel_calibration",
+      "sha256": "f09dbfd91e87f27cc952bb6d7ea1c12e52f4d80efdb26b52f957ddb50c30d4a4"
+    },
+    "files/measurement_window_v1.json": {
+      "bytes_base64": "ewogICJ3aW5kb3dfaWQiOiAibWVhc193aW5kb3ciLAogICJ2ZXJzaW9uIjogInYxIiwKICAic3RhcnRfbnMiOiAtMC40LAogICJlbmRfbnMiOiAyLjAsCiAgImNvb3JkaW5hdGVfYmFzaXMiOiAidHJpZ2dlcl9yZWxhdGl2ZV9ucyIsCiAgInF1YW50aXR5IjogInB1bHNlX2FyZWEiCn0K",
+      "media_type": "application/json",
+      "role": "measurement_window",
+      "sha256": "ace568def42db4c5406ad70ed3b1b57e29a4709dd421600ba88dc309d980fe68"
+    },
+    "files/seg_1_samples.csv": {
+      "bytes_base64": "c2VnbWVudF9pZCx0aW1lX25zLHZvbHRhZ2VfY29kZQpzZWdfMSwtMy4yLDAKc2VnXzEsLTMsMApzZWdfMSwtMi43LDAKc2VnXzEsLTIuNSwwCnNlZ18xLC0yLjIsMApzZWdfMSwtMiwwCnNlZ18xLC0xLjcsMApzZWdfMSwtMS41LDAKc2VnXzEsLTEuMiwwCnNlZ18xLC0xLDAKc2VnXzEsLTAuNyw4CnNlZ18xLC0wLjUsNTAKc2VnXzEsLTAuMiwzMjMKc2VnXzEsMCw2MzgKc2VnXzEsMC4yLDgwMApzZWdfMSwwLjUsNDgwCnNlZ18xLDAuNywxOTQKc2VnXzEsMSwyMQpzZWdfMSwxLjIsMwpzZWdfMSwxLjUsMApzZWdfMSwxLjcsMApzZWdfMSwyLDAKc2VnXzEsMi4yLDAKc2VnXzEsMi41LDAKc2VnXzEsMi43LDAKc2VnXzEsMywwCg==",
+      "media_type": "text/csv",
+      "role": "segment_samples",
+      "segment_id": "seg_1",
+      "sha256": "2e1dac63eeb68bdcacd7a0c72ad8102e063ce1f9b4e22cb5f4baa46c32da7035"
+    },
+    "files/seg_2_samples.csv": {
+      "bytes_base64": "c2VnbWVudF9pZCx0aW1lX25zLHZvbHRhZ2VfY29kZQpzZWdfMiwtMywwCnNlZ18yLC0yLjc1LDAKc2VnXzIsLTIuNSwwCnNlZ18yLC0yLjI1LDAKc2VnXzIsLTIsMApzZWdfMiwtMS43NSwwCnNlZ18yLC0xLjUsMApzZWdfMiwtMS4yNSwwCnNlZ18yLC0xLDAKc2VnXzIsLTAuNzUsMQpzZWdfMiwtMC41LDEzCnNlZ18yLC0wLjI1LDExNApzZWdfMiwwLDEyMDAKc2VnXzIsMC4yNSwxMjAwCnNlZ18yLDAuNSwxMjAwCnNlZ18yLDAuNzUsMTIwMApzZWdfMiwxLDE2MgpzZWdfMiwxLjI1LDIxCnNlZ18yLDEuNSwxCnNlZ18yLDEuNzUsMApzZWdfMiwyLDAKc2VnXzIsMi4yNSwwCnNlZ18yLDIuNSwwCnNlZ18yLDIuNzUsMApzZWdfMiwzLDAK",
+      "media_type": "text/csv",
+      "role": "segment_samples",
+      "segment_id": "seg_2",
+      "sha256": "13a07ac4d3e518007a20eafecb7e0bfe174c3a310e48c4d3f05b621cff13e145"
+    },
+    "files/seg_3_samples.csv": {
+      "bytes_base64": "c2VnbWVudF9pZCx0aW1lX25zLHZvbHRhZ2VfY29kZQpzZWdfMywtMywwCnNlZ18zLC0yLjc1LDAKc2VnXzMsLTIuNSwwCnNlZ18zLC0yLjI1LDAKc2VnXzMsLTIsMApzZWdfMywtMS43NSw1CnNlZ18zLC0xLjUsNDgKc2VnXzMsLTEuMjUsMjQ3CnNlZ18zLC0xLDYyMgpzZWdfMywtMC43NSw3NjkKc2VnXzMsLTAuNSw0NjgKc2VnXzMsLTAuMjUsMTQyCnNlZ18zLDAsNDAKc2VnXzMsMC4yNSwxMzEKc2VnXzMsMC41LDQzMgpzZWdfMywwLjc1LDcxMApzZWdfMywxLDU3NApzZWdfMywxLjI1LDIyOApzZWdfMywxLjUsNDUKc2VnXzMsMS43NSw0CnNlZ18zLDIsMApzZWdfMywyLjI1LDAKc2VnXzMsMi41LDAKc2VnXzMsMi43NSwwCnNlZ18zLDMsMAo=",
+      "media_type": "text/csv",
+      "role": "segment_samples",
+      "segment_id": "seg_3",
+      "sha256": "87c6f8917a2a77d8a6b1fa05ecbe01c9c62c1584968dd1487194292b1ea58bf5"
+    },
+    "files/seg_4_samples.csv": {
+      "bytes_base64": "c2VnbWVudF9pZCx0aW1lX25zLHZvbHRhZ2VfY29kZQpzZWdfNCwtMywwCnNlZ180LC0yLjc1LDAKc2VnXzQsLTIuNSwwCnNlZ180LC0yLjI1LDAKc2VnXzQsLTIsMApzZWdfNCwtMS43NSwwCnNlZ180LC0xLjUsMApzZWdfNCwtMS4yNSw4CnNlZ180LC0xLDczCnNlZ180LC0wLjc1LDMyMwpzZWdfNCwtMC41LDcwNApzZWdfNCwtMC4yNSw3NTYKc2VnXzQsMCwzOTkKc2VnXzQsMC4yNSwxMDQKc2VnXzQsMC41LDEzCnNlZ180LDAuNzUsMQpzZWdfNCwxLDAKc2VnXzQsMS4yNSwwCnNlZ180LDEuNSwwCnNlZ180LDEuNzUsMApzZWdfNCwyLDAKc2VnXzQsMi4yNSwwCnNlZ180LDIuNSwwCnNlZ180LDIuNzUsMApzZWdfNCwzLDAK",
+      "media_type": "text/csv",
+      "role": "segment_samples",
+      "segment_id": "seg_4",
+      "sha256": "e1abc850c6e483460dce3591dfe15c599b3ff9a6ea70510b6dd9d5defadd4086"
+    },
+    "files/seg_5_samples.csv": {
+      "bytes_base64": "c2VnbWVudF9pZCx0aW1lX25zLHZvbHRhZ2VfY29kZQpzZWdfNSwtMywwCnNlZ181LC0yLjc1LDAKc2VnXzUsLTIuNSwwCnNlZ181LC0yLjI1LDAKc2VnXzUsLTIsMApzZWdfNSwtMS43NSwwCnNlZ181LC0xLjUsMApzZWdfNSwtMS4yNSwwCnNlZ181LC0xLDAKc2VnXzUsLTAuNzUsMApzZWdfNSwtMC41LDAKc2VnXzUsLTAuMjUsNQpzZWdfNSwwLDUwCnNlZ181LDAuMjUsMjU0CnNlZ181LDAuNSw2MzgKc2VnXzUsMC43NSw3ODkKc2VnXzUsMSw0ODAKc2VnXzUsMS4yNSwxNDQKc2VnXzUsMS41LDIxCnNlZ181LDEuNzUsMgpzZWdfNSwyLDAKc2VnXzUsMi4yNSwwCnNlZ181LDIuNSwwCnNlZ181LDIuNzUsMApzZWdfNSwzLDAK",
+      "media_type": "text/csv",
+      "role": "segment_samples",
+      "segment_id": "seg_5",
+      "sha256": "4971a3bee5d967c4e27acd9bd526c48cadea612eb7c27ece5ed2f116e90ef1f8"
+    },
+    "files/seg_6_samples.csv": {
+      "bytes_base64": "c2VnbWVudF9pZCx0aW1lX25zLHZvbHRhZ2VfY29kZQpzZWdfNiwtMywwCnNlZ182LC0yLjc1LDAKc2VnXzYsLTIuNSwwCnNlZ182LC0yLjI1LDAKc2VnXzYsLTIsMApzZWdfNiwtMS43NSwwCnNlZ182LC0xLjUsMApzZWdfNiwtMS4yNSwwCnNlZ182LC0xLDAKc2VnXzYsLTAuNzUsMgpzZWdfNiwtMC41LDI3CnNlZ182LC0wLjI1LDE4MApzZWdfNiwwLDYwMApzZWdfNiwwLjI1LDk4NgpzZWdfNiwwLjUsNzk3CnNlZ182LDAuNzUsMzE3CnNlZ182LDEsNjIKc2VnXzYsMS4yNSw2CnNlZ182LDEuNSwwCnNlZ182LDEuNzUsMApzZWdfNiwyLDAKc2VnXzYsMi4yNSwwCnNlZ182LDIuNSwwCnNlZ182LDIuNzUsMApzZWdfNiwzLDAK",
+      "media_type": "text/csv",
+      "role": "segment_samples",
+      "segment_id": "seg_6",
+      "sha256": "267833c7c02544d8b4b56582e84202e56dd28cd4c8717828561a1bd3db7981fc"
+    },
+    "files/seg_7_samples.csv": {
+      "bytes_base64": "c2VnbWVudF9pZCx0aW1lX25zLHZvbHRhZ2VfY29kZQpzZWdfNywwLDgwMApzZWdfNywwLjMsNDgwCnNlZ183LDAuNiwxMDQKc2VnXzcsMC45LDgKc2VnXzcsMS4yLDAKc2VnXzcsMS41LDAKc2VnXzcsMS44LDAKc2VnXzcsMi4xLDAKc2VnXzcsMi40LDAKc2VnXzcsMi43LDAKc2VnXzcsMywwCnNlZ183LDMuMywwCnNlZ183LDMuNiwwCnNlZ183LDMuOSwwCnNlZ183LDQuMiwwCnNlZ183LDQuNSwwCnNlZ183LDQuOCwwCnNlZ183LDUuMSwwCnNlZ183LDUuNCwwCnNlZ183LDUuNywwCnNlZ183LDYsMAo=",
+      "media_type": "text/csv",
+      "role": "segment_samples",
+      "segment_id": "seg_7",
+      "sha256": "1b260606c8fafa706e144ac3ef0b7097a1c0021c0f45432fe6b8d05831d61437"
+    },
+    "files/timebases.csv": {
+      "bytes_base64": "c2VnbWVudF9pZCxpbmRleCx0aW1lX25zLGludGVydmFsX2tpbmQKc2VnXzEsMCwtMy4yLG5vbnVuaWZvcm0Kc2VnXzEsMSwtMyxub251bmlmb3JtCnNlZ18xLDIsLTIuNyxub251bmlmb3JtCnNlZ18xLDMsLTIuNSxub251bmlmb3JtCnNlZ18xLDQsLTIuMixub251bmlmb3JtCnNlZ18xLDUsLTIsbm9udW5pZm9ybQpzZWdfMSw2LC0xLjcsbm9udW5pZm9ybQpzZWdfMSw3LC0xLjUsbm9udW5pZm9ybQpzZWdfMSw4LC0xLjIsbm9udW5pZm9ybQpzZWdfMSw5LC0xLG5vbnVuaWZvcm0Kc2VnXzEsMTAsLTAuNyxub251bmlmb3JtCnNlZ18xLDExLC0wLjUsbm9udW5pZm9ybQpzZWdfMSwxMiwtMC4yLG5vbnVuaWZvcm0Kc2VnXzEsMTMsMCxub251bmlmb3JtCnNlZ18xLDE0LDAuMixub251bmlmb3JtCnNlZ18xLDE1LDAuNSxub251bmlmb3JtCnNlZ18xLDE2LDAuNyxub251bmlmb3JtCnNlZ18xLDE3LDEsbm9udW5pZm9ybQpzZWdfMSwxOCwxLjIsbm9udW5pZm9ybQpzZWdfMSwxOSwxLjUsbm9udW5pZm9ybQpzZWdfMSwyMCwxLjcsbm9udW5pZm9ybQpzZWdfMSwyMSwyLG5vbnVuaWZvcm0Kc2VnXzEsMjIsMi4yLG5vbnVuaWZvcm0Kc2VnXzEsMjMsMi41LG5vbnVuaWZvcm0Kc2VnXzEsMjQsMi43LG5vbnVuaWZvcm0Kc2VnXzEsMjUsMyxub251bmlmb3JtCnNlZ18yLDAsLTMsdW5pZm9ybQpzZWdfMiwxLC0yLjc1LHVuaWZvcm0Kc2VnXzIsMiwtMi41LHVuaWZvcm0Kc2VnXzIsMywtMi4yNSx1bmlmb3JtCnNlZ18yLDQsLTIsdW5pZm9ybQpzZWdfMiw1LC0xLjc1LHVuaWZvcm0Kc2VnXzIsNiwtMS41LHVuaWZvcm0Kc2VnXzIsNywtMS4yNSx1bmlmb3JtCnNlZ18yLDgsLTEsdW5pZm9ybQpzZWdfMiw5LC0wLjc1LHVuaWZvcm0Kc2VnXzIsMTAsLTAuNSx1bmlmb3JtCnNlZ18yLDExLC0wLjI1LHVuaWZvcm0Kc2VnXzIsMTIsMCx1bmlmb3JtCnNlZ18yLDEzLDAuMjUsdW5pZm9ybQpzZWdfMiwxNCwwLjUsdW5pZm9ybQpzZWdfMiwxNSwwLjc1LHVuaWZvcm0Kc2VnXzIsMTYsMSx1bmlmb3JtCnNlZ18yLDE3LDEuMjUsdW5pZm9ybQpzZWdfMiwxOCwxLjUsdW5pZm9ybQpzZWdfMiwxOSwxLjc1LHVuaWZvcm0Kc2VnXzIsMjAsMix1bmlmb3JtCnNlZ18yLDIxLDIuMjUsdW5pZm9ybQpzZWdfMiwyMiwyLjUsdW5pZm9ybQpzZWdfMiwyMywyLjc1LHVuaWZvcm0Kc2VnXzIsMjQsMyx1bmlmb3JtCnNlZ18zLDAsLTMsdW5pZm9ybQpzZWdfMywxLC0yLjc1LHVuaWZvcm0Kc2VnXzMsMiwtMi41LHVuaWZvcm0Kc2VnXzMsMywtMi4yNSx1bmlmb3JtCnNlZ18zLDQsLTIsdW5pZm9ybQpzZWdfMyw1LC0xLjc1LHVuaWZvcm0Kc2VnXzMsNiwtMS41LHVuaWZvcm0Kc2VnXzMsNywtMS4yNSx1bmlmb3JtCnNlZ18zLDgsLTEsdW5pZm9ybQpzZWdfMyw5LC0wLjc1LHVuaWZvcm0Kc2VnXzMsMTAsLTAuNSx1bmlmb3JtCnNlZ18zLDExLC0wLjI1LHVuaWZvcm0Kc2VnXzMsMTIsMCx1bmlmb3JtCnNlZ18zLDEzLDAuMjUsdW5pZm9ybQpzZWdfMywxNCwwLjUsdW5pZm9ybQpzZWdfMywxNSwwLjc1LHVuaWZvcm0Kc2VnXzMsMTYsMSx1bmlmb3JtCnNlZ18zLDE3LDEuMjUsdW5pZm9ybQpzZWdfMywxOCwxLjUsdW5pZm9ybQpzZWdfMywxOSwxLjc1LHVuaWZvcm0Kc2VnXzMsMjAsMix1bmlmb3JtCnNlZ18zLDIxLDIuMjUsdW5pZm9ybQpzZWdfMywyMiwyLjUsdW5pZm9ybQpzZWdfMywyMywyLjc1LHVuaWZvcm0Kc2VnXzMsMjQsMyx1bmlmb3JtCnNlZ180LDAsLTMsdW5pZm9ybQpzZWdfNCwxLC0yLjc1LHVuaWZvcm0Kc2VnXzQsMiwtMi41LHVuaWZvcm0Kc2VnXzQsMywtMi4yNSx1bmlmb3JtCnNlZ180LDQsLTIsdW5pZm9ybQpzZWdfNCw1LC0xLjc1LHVuaWZvcm0Kc2VnXzQsNiwtMS41LHVuaWZvcm0Kc2VnXzQsNywtMS4yNSx1bmlmb3JtCnNlZ180LDgsLTEsdW5pZm9ybQpzZWdfNCw5LC0wLjc1LHVuaWZvcm0Kc2VnXzQsMTAsLTAuNSx1bmlmb3JtCnNlZ180LDExLC0wLjI1LHVuaWZvcm0Kc2VnXzQsMTIsMCx1bmlmb3JtCnNlZ180LDEzLDAuMjUsdW5pZm9ybQpzZWdfNCwxNCwwLjUsdW5pZm9ybQpzZWdfNCwxNSwwLjc1LHVuaWZvcm0Kc2VnXzQsMTYsMSx1bmlmb3JtCnNlZ180LDE3LDEuMjUsdW5pZm9ybQpzZWdfNCwxOCwxLjUsdW5pZm9ybQpzZWdfNCwxOSwxLjc1LHVuaWZvcm0Kc2VnXzQsMjAsMix1bmlmb3JtCnNlZ180LDIxLDIuMjUsdW5pZm9ybQpzZWdfNCwyMiwyLjUsdW5pZm9ybQpzZWdfNCwyMywyLjc1LHVuaWZvcm0Kc2VnXzQsMjQsMyx1bmlmb3JtCnNlZ181LDAsLTMsbm9udW5pZm9ybQpzZWdfNSwxLC0yLjc1LG5vbnVuaWZvcm0Kc2VnXzUsMiwtMi41LG5vbnVuaWZvcm0Kc2VnXzUsMywtMi4yNSxub251bmlmb3JtCnNlZ181LDQsLTIsbm9udW5pZm9ybQpzZWdfNSw1LC0xLjc1LG5vbnVuaWZvcm0Kc2VnXzUsNiwtMS41LG5vbnVuaWZvcm0Kc2VnXzUsNywtMS4yNSxub251bmlmb3JtCnNlZ181LDgsLTEsbm9udW5pZm9ybQpzZWdfNSw5LC0wLjc1LG5vbnVuaWZvcm0Kc2VnXzUsMTAsLTAuNSxub251bmlmb3JtCnNlZ181LDExLC0wLjI1LG5vbnVuaWZvcm0Kc2VnXzUsMTIsMCxub251bmlmb3JtCnNlZ181LDEzLDAuMjUsbm9udW5pZm9ybQpzZWdfNSwxNCwwLjUsbm9udW5pZm9ybQpzZWdfNSwxNSwwLjc1LG5vbnVuaWZvcm0Kc2VnXzUsMTYsMSxub251bmlmb3JtCnNlZ181LDE3LDEuMjUsbm9udW5pZm9ybQpzZWdfNSwxOCwxLjUsbm9udW5pZm9ybQpzZWdfNSwxOSwxLjc1LG5vbnVuaWZvcm0Kc2VnXzUsMjAsMixub251bmlmb3JtCnNlZ181LDIxLDIuMjUsbm9udW5pZm9ybQpzZWdfNSwyMiwyLjUsbm9udW5pZm9ybQpzZWdfNSwyMywyLjc1LG5vbnVuaWZvcm0Kc2VnXzUsMjQsMyxub251bmlmb3JtCnNlZ182LDAsLTMsdW5pZm9ybQpzZWdfNiwxLC0yLjc1LHVuaWZvcm0Kc2VnXzYsMiwtMi41LHVuaWZvcm0Kc2VnXzYsMywtMi4yNSx1bmlmb3JtCnNlZ182LDQsLTIsdW5pZm9ybQpzZWdfNiw1LC0xLjc1LHVuaWZvcm0Kc2VnXzYsNiwtMS41LHVuaWZvcm0Kc2VnXzYsNywtMS4yNSx1bmlmb3JtCnNlZ182LDgsLTEsdW5pZm9ybQpzZWdfNiw5LC0wLjc1LHVuaWZvcm0Kc2VnXzYsMTAsLTAuNSx1bmlmb3JtCnNlZ182LDExLC0wLjI1LHVuaWZvcm0Kc2VnXzYsMTIsMCx1bmlmb3JtCnNlZ182LDEzLDAuMjUsdW5pZm9ybQpzZWdfNiwxNCwwLjUsdW5pZm9ybQpzZWdfNiwxNSwwLjc1LHVuaWZvcm0Kc2VnXzYsMTYsMSx1bmlmb3JtCnNlZ182LDE3LDEuMjUsdW5pZm9ybQpzZWdfNiwxOCwxLjUsdW5pZm9ybQpzZWdfNiwxOSwxLjc1LHVuaWZvcm0Kc2VnXzYsMjAsMix1bmlmb3JtCnNlZ182LDIxLDIuMjUsdW5pZm9ybQpzZWdfNiwyMiwyLjUsdW5pZm9ybQpzZWdfNiwyMywyLjc1LHVuaWZvcm0Kc2VnXzYsMjQsMyx1bmlmb3JtCnNlZ183LDAsMCx1bmlmb3JtCnNlZ183LDEsMC4zLHVuaWZvcm0Kc2VnXzcsMiwwLjYsdW5pZm9ybQpzZWdfNywzLDAuOSx1bmlmb3JtCnNlZ183LDQsMS4yLHVuaWZvcm0Kc2VnXzcsNSwxLjUsdW5pZm9ybQpzZWdfNyw2LDEuOCx1bmlmb3JtCnNlZ183LDcsMi4xLHVuaWZvcm0Kc2VnXzcsOCwyLjQsdW5pZm9ybQpzZWdfNyw5LDIuNyx1bmlmb3JtCnNlZ183LDEwLDMsdW5pZm9ybQpzZWdfNywxMSwzLjMsdW5pZm9ybQpzZWdfNywxMiwzLjYsdW5pZm9ybQpzZWdfNywxMywzLjksdW5pZm9ybQpzZWdfNywxNCw0LjIsdW5pZm9ybQpzZWdfNywxNSw0LjUsdW5pZm9ybQpzZWdfNywxNiw0LjgsdW5pZm9ybQpzZWdfNywxNyw1LjEsdW5pZm9ybQpzZWdfNywxOCw1LjQsdW5pZm9ybQpzZWdfNywxOSw1LjcsdW5pZm9ybQpzZWdfNywyMCw2LHVuaWZvcm0K",
+      "media_type": "text/csv",
+      "role": "timebases",
+      "sha256": "975ee32edcb0f34f0ad9a53b4e407594069f1c467bd40db309032e4764ffb6f8"
+    },
+    "files/trigger_markers.csv": {
+      "bytes_base64": "c2VnbWVudF9pZCx0cmlnZ2VyX21hcmtlcl9ucyxjb29yZGluYXRlX2Jhc2lzCnNlZ18xLDEwMC4wLGFjcXVpc2l0aW9uX2Nsb2NrL2Fic29sdXRlX25zCnNlZ18yLDIwMC4wLGFjcXVpc2l0aW9uX2Nsb2NrL2Fic29sdXRlX25zCnNlZ18zLDMwMC4wLGFjcXVpc2l0aW9uX2Nsb2NrL2Fic29sdXRlX25zCnNlZ180LDQwMC4wLGFjcXVpc2l0aW9uX2Nsb2NrL2Fic29sdXRlX25zCnNlZ181LDUwMC4wLGFjcXVpc2l0aW9uX2Nsb2NrL2Fic29sdXRlX25zCnNlZ182LDYwMC4wLGFjcXVpc2l0aW9uX2Nsb2NrL2Fic29sdXRlX25zCnNlZ183LDcwMC4wLGFjcXVpc2l0aW9uX2Nsb2NrL2Fic29sdXRlX25zCg==",
+      "media_type": "text/csv",
+      "role": "trigger_markers",
+      "sha256": "5b551cf721ffb49392dc887053dd5a3a00f8307fa207b81559a847b1e885fc2b"
+    }
+  },
+  "fixed_situations": [
+    "nonuniform_timebase",
+    "vertical_saturation",
+    "multipeak_alignment",
+    "channel_deskew",
+    "missing_samples",
+    "trigger_at_boundary",
+    "measurement_window_revision"
+  ],
+  "materials": [
+    {
+      "channel_id": "chA",
+      "coordinate_basis": "trigger_relative_ns",
+      "material_id": "seg_1_samples",
+      "material_type": "segment_samples",
+      "path": "files/seg_1_samples.csv",
+      "raw_representation": {
+        "code_unit": "ADC count",
+        "columns": [
+          "time_ns",
+          "voltage_code"
+        ],
+        "time_unit": "ns"
+      },
+      "segment_id": "seg_1"
+    },
+    {
+      "coordinate_basis": "trigger_relative_ns",
+      "material_id": "seg_1_timebase",
+      "material_type": "timebase",
+      "path": "files/timebases.csv",
+      "raw_representation": {
+        "column": "time_ns",
+        "unit": "ns"
+      },
+      "segment_id": "seg_1"
+    },
+    {
+      "coordinate_basis": "acquisition_clock/absolute_ns",
+      "material_id": "seg_1_trigger",
+      "material_type": "trigger_timestamp",
+      "path": "files/trigger_markers.csv",
+      "raw_representation": {
+        "column": "trigger_marker_ns",
+        "unit": "ns"
+      },
+      "segment_id": "seg_1"
+    },
+    {
+      "channel_id": "chA",
+      "material_id": "seg_1_calibration",
+      "material_type": "channel_calibration",
+      "path": "files/chA_calibration.json",
+      "raw_representation": {
+        "deskew": "0 ps",
+        "probe_attenuation": "1x",
+        "vertical_gain": "1.0 mV/count"
+      },
+      "segment_id": "seg_1"
+    },
+    {
+      "channel_id": "chA",
+      "coordinate_basis": "trigger_relative_ns",
+      "material_id": "seg_2_samples",
+      "material_type": "segment_samples",
+      "path": "files/seg_2_samples.csv",
+      "raw_representation": {
+        "code_unit": "ADC count",
+        "columns": [
+          "time_ns",
+          "voltage_code"
+        ],
+        "time_unit": "ns"
+      },
+      "segment_id": "seg_2"
+    },
+    {
+      "coordinate_basis": "trigger_relative_ns",
+      "material_id": "seg_2_timebase",
+      "material_type": "timebase",
+      "path": "files/timebases.csv",
+      "raw_representation": {
+        "column": "time_ns",
+        "unit": "ns"
+      },
+      "segment_id": "seg_2"
+    },
+    {
+      "coordinate_basis": "acquisition_clock/absolute_ns",
+      "material_id": "seg_2_trigger",
+      "material_type": "trigger_timestamp",
+      "path": "files/trigger_markers.csv",
+      "raw_representation": {
+        "column": "trigger_marker_ns",
+        "unit": "ns"
+      },
+      "segment_id": "seg_2"
+    },
+    {
+      "channel_id": "chA",
+      "material_id": "seg_2_calibration",
+      "material_type": "channel_calibration",
+      "path": "files/chA_calibration.json",
+      "raw_representation": {
+        "deskew": "0 ps",
+        "probe_attenuation": "1x",
+        "vertical_gain": "1.0 mV/count"
+      },
+      "segment_id": "seg_2"
+    },
+    {
+      "channel_id": "chC",
+      "coordinate_basis": "trigger_relative_ns",
+      "material_id": "seg_3_samples",
+      "material_type": "segment_samples",
+      "path": "files/seg_3_samples.csv",
+      "raw_representation": {
+        "code_unit": "ADC count",
+        "columns": [
+          "time_ns",
+          "voltage_code"
+        ],
+        "time_unit": "ns"
+      },
+      "segment_id": "seg_3"
+    },
+    {
+      "coordinate_basis": "trigger_relative_ns",
+      "material_id": "seg_3_timebase",
+      "material_type": "timebase",
+      "path": "files/timebases.csv",
+      "raw_representation": {
+        "column": "time_ns",
+        "unit": "ns"
+      },
+      "segment_id": "seg_3"
+    },
+    {
+      "coordinate_basis": "acquisition_clock/absolute_ns",
+      "material_id": "seg_3_trigger",
+      "material_type": "trigger_timestamp",
+      "path": "files/trigger_markers.csv",
+      "raw_representation": {
+        "column": "trigger_marker_ns",
+        "unit": "ns"
+      },
+      "segment_id": "seg_3"
+    },
+    {
+      "channel_id": "chC",
+      "material_id": "seg_3_calibration",
+      "material_type": "channel_calibration",
+      "path": "files/chC_calibration.json",
+      "raw_representation": {
+        "deskew": "0 ps",
+        "probe_attenuation": "1x",
+        "vertical_gain": "1.0 mV/count"
+      },
+      "segment_id": "seg_3"
+    },
+    {
+      "channel_id": "chD",
+      "coordinate_basis": "trigger_relative_ns",
+      "material_id": "seg_4_samples",
+      "material_type": "segment_samples",
+      "path": "files/seg_4_samples.csv",
+      "raw_representation": {
+        "code_unit": "ADC count",
+        "columns": [
+          "time_ns",
+          "voltage_code"
+        ],
+        "time_unit": "ns"
+      },
+      "segment_id": "seg_4"
+    },
+    {
+      "coordinate_basis": "trigger_relative_ns",
+      "material_id": "seg_4_timebase",
+      "material_type": "timebase",
+      "path": "files/timebases.csv",
+      "raw_representation": {
+        "column": "time_ns",
+        "unit": "ns"
+      },
+      "segment_id": "seg_4"
+    },
+    {
+      "coordinate_basis": "acquisition_clock/absolute_ns",
+      "material_id": "seg_4_trigger",
+      "material_type": "trigger_timestamp",
+      "path": "files/trigger_markers.csv",
+      "raw_representation": {
+        "column": "trigger_marker_ns",
+        "unit": "ns"
+      },
+      "segment_id": "seg_4"
+    },
+    {
+      "channel_id": "chD",
+      "material_id": "seg_4_calibration",
+      "material_type": "channel_calibration",
+      "path": "files/chD_calibration.json",
+      "raw_representation": {
+        "deskew": "350 ps",
+        "probe_attenuation": "1x",
+        "vertical_gain": "1.0 mV/count"
+      },
+      "segment_id": "seg_4"
+    },
+    {
+      "channel_id": "chE",
+      "coordinate_basis": "trigger_relative_ns",
+      "material_id": "seg_5_samples",
+      "material_type": "segment_samples",
+      "path": "files/seg_5_samples.csv",
+      "raw_representation": {
+        "code_unit": "ADC count",
+        "columns": [
+          "time_ns",
+          "voltage_code"
+        ],
+        "time_unit": "ns"
+      },
+      "segment_id": "seg_5"
+    },
+    {
+      "coordinate_basis": "trigger_relative_ns",
+      "material_id": "seg_5_timebase",
+      "material_type": "timebase",
+      "path": "files/timebases.csv",
+      "raw_representation": {
+        "column": "time_ns",
+        "unit": "ns"
+      },
+      "segment_id": "seg_5"
+    },
+    {
+      "coordinate_basis": "acquisition_clock/absolute_ns",
+      "material_id": "seg_5_trigger",
+      "material_type": "trigger_timestamp",
+      "path": "files/trigger_markers.csv",
+      "raw_representation": {
+        "column": "trigger_marker_ns",
+        "unit": "ns"
+      },
+      "segment_id": "seg_5"
+    },
+    {
+      "channel_id": "chE",
+      "material_id": "seg_5_calibration",
+      "material_type": "channel_calibration",
+      "path": "files/chE_calibration.json",
+      "raw_representation": {
+        "deskew": "0 ps",
+        "probe_attenuation": "1x",
+        "vertical_gain": "1.0 mV/count"
+      },
+      "segment_id": "seg_5"
+    },
+    {
+      "channel_id": "chB",
+      "coordinate_basis": "trigger_relative_ns",
+      "material_id": "seg_6_samples",
+      "material_type": "segment_samples",
+      "path": "files/seg_6_samples.csv",
+      "raw_representation": {
+        "code_unit": "ADC count",
+        "columns": [
+          "time_ns",
+          "voltage_code"
+        ],
+        "time_unit": "ns"
+      },
+      "segment_id": "seg_6"
+    },
+    {
+      "coordinate_basis": "trigger_relative_ns",
+      "material_id": "seg_6_timebase",
+      "material_type": "timebase",
+      "path": "files/timebases.csv",
+      "raw_representation": {
+        "column": "time_ns",
+        "unit": "ns"
+      },
+      "segment_id": "seg_6"
+    },
+    {
+      "coordinate_basis": "acquisition_clock/absolute_ns",
+      "material_id": "seg_6_trigger",
+      "material_type": "trigger_timestamp",
+      "path": "files/trigger_markers.csv",
+      "raw_representation": {
+        "column": "trigger_marker_ns",
+        "unit": "ns"
+      },
+      "segment_id": "seg_6"
+    },
+    {
+      "channel_id": "chB",
+      "material_id": "seg_6_calibration",
+      "material_type": "channel_calibration",
+      "path": "files/chB_calibration.json",
+      "raw_representation": {
+        "deskew": "0 ps",
+        "probe_attenuation": "10x",
+        "vertical_gain": "800 µV/count"
+      },
+      "segment_id": "seg_6"
+    },
+    {
+      "channel_id": "chA",
+      "coordinate_basis": "trigger_relative_ns",
+      "material_id": "seg_7_samples",
+      "material_type": "segment_samples",
+      "path": "files/seg_7_samples.csv",
+      "raw_representation": {
+        "code_unit": "ADC count",
+        "columns": [
+          "time_ns",
+          "voltage_code"
+        ],
+        "time_unit": "ns"
+      },
+      "segment_id": "seg_7"
+    },
+    {
+      "coordinate_basis": "trigger_relative_ns",
+      "material_id": "seg_7_timebase",
+      "material_type": "timebase",
+      "path": "files/timebases.csv",
+      "raw_representation": {
+        "column": "time_ns",
+        "unit": "ns"
+      },
+      "segment_id": "seg_7"
+    },
+    {
+      "coordinate_basis": "acquisition_clock/absolute_ns",
+      "material_id": "seg_7_trigger",
+      "material_type": "trigger_timestamp",
+      "path": "files/trigger_markers.csv",
+      "raw_representation": {
+        "column": "trigger_marker_ns",
+        "unit": "ns"
+      },
+      "segment_id": "seg_7"
+    },
+    {
+      "channel_id": "chA",
+      "material_id": "seg_7_calibration",
+      "material_type": "channel_calibration",
+      "path": "files/chA_calibration.json",
+      "raw_representation": {
+        "deskew": "0 ps",
+        "probe_attenuation": "1x",
+        "vertical_gain": "1.0 mV/count"
+      },
+      "segment_id": "seg_7"
+    },
+    {
+      "material_id": "meas_window_v1",
+      "material_type": "measurement_window",
+      "path": "files/measurement_window_v1.json",
+      "raw_representation": {
+        "basis": "trigger_relative_ns",
+        "end": "2.0 ns",
+        "start": "-0.4 ns"
+      },
+      "version": "v1",
+      "window_id": "meas_window"
+    }
+  ],
+  "narrative": [
+    "导入分段捕获、触发标记与通道标定。",
+    "核对每段原采样、时基、竖直增益、探头衰减、触发时标、deskew 和测量窗口版本。",
+    "在第二分支保留多峰候选并审查不等间隔、饱和、deskew、缺样和触发边界诊断。"
+  ],
+  "revisions": {
+    "chC_gain_fix": {
+      "expected_invalidated_segments": [
+        "seg_3"
+      ],
+      "material": {
+        "channel_id": "chC",
+        "material_id": "cal_C_v2",
+        "material_type": "channel_calibration",
+        "raw_representation": {
+          "deskew": "0 ps",
+          "probe_attenuation": "1x",
+          "vertical_gain": "1.2 mV/count"
+        }
+      }
+    },
+    "window_v2": {
+      "expected_invalidated_families": [
+        "measurement"
+      ],
+      "material": {
+        "coordinate_basis": "trigger_relative_ns",
+        "material_id": "meas_window_v2",
+        "material_type": "measurement_window",
+        "raw_representation": {
+          "basis": "trigger_relative_ns",
+          "end": "2.2 ns",
+          "start": "0.0 ns"
+        },
+        "version": "v2",
+        "window_id": "meas_window"
+      }
+    }
+  },
+  "schema_version": "1",
+  "team": "信号完整性团队",
+  "title": "波形叠影台：示波器分段、触发抖动与测量窗口谱系"
+}

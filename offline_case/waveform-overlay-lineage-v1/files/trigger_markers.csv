@@ -1,0 +1,8 @@
+segment_id,trigger_marker_ns,coordinate_basis
+seg_1,100.0,acquisition_clock/absolute_ns
+seg_2,200.0,acquisition_clock/absolute_ns
+seg_3,300.0,acquisition_clock/absolute_ns
+seg_4,400.0,acquisition_clock/absolute_ns
+seg_5,500.0,acquisition_clock/absolute_ns
+seg_6,600.0,acquisition_clock/absolute_ns
+seg_7,700.0,acquisition_clock/absolute_ns

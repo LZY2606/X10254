@@ -1,0 +1,15 @@
+{
+  "channel_id": "chB",
+  "vertical_gain": {
+    "raw_representation": "800 µV/count",
+    "unit": "V/count"
+  },
+  "probe_attenuation": {
+    "raw_representation": "10x",
+    "unit": "ratio"
+  },
+  "deskew": {
+    "raw_representation": "0 ps",
+    "coordinate_basis": "channel/reference_trigger"
+  }
+}
